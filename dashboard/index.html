@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELGP — Social Determinants of Health Dashboard</title>
+<style>
+:root {
+  --bg:        #F6F7F4;
+  --surface:   #FFFFFF;
+  --border:    #E0E4DE;
+  --ink:       #1A2820;
+  --ink-soft:  #3B4C44;
+  --muted:     #7A8C82;
+  --green:     #1A5C4E;
+  --green-mid: #2D8A72;
+  --green-lt:  #E6F2EE;
+  --gold:      #B07C1A;
+  --red:       #B03A2E;
+  --red-lt:    #F5E8E6;
+  --mono:      ui-monospace,"Cascadia Code","SF Mono",Menlo,monospace;
+  --sans:      system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --radius:    10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+
+/* ── Header ── */
+.header{
+  background:var(--green);color:#fff;
+  padding:24px 28px 20px;
+}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.header h1{font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.header .sub{font-size:13px;opacity:.8;margin-top:6px;max-width:60ch}
+.vintage-badge{
+  font-family:var(--mono);font-size:12px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  border-radius:20px;padding:5px 12px;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;
+}
+.vintage-badge .dot{width:7px;height:7px;border-radius:50%;background:#6FCFB4}
+
+/* ── Loading / Error ── */
+.state-msg{
+  text-align:center;padding:60px 20px;color:var(--muted);
+  font-size:15px;
+}
+.state-msg .spinner{
+  width:32px;height:32px;border:3px solid var(--border);
+  border-top-color:var(--green-mid);border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Controls ── */
+.controls{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  position:sticky;top:0;z-index:10;
+}
+.ctl-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+select{
+  font-family:var(--sans);font-size:13px;color:var(--ink);
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:7px;padding:7px 10px;cursor:pointer;
+}
+select:focus{outline:2px solid var(--green-mid);outline-offset:0}
+.seg{display:flex;border:1px solid var(--border);border-radius:7px;overflow:hidden;background:var(--bg)}
+.seg button{
+  font-size:13px;border:0;background:transparent;color:var(--ink-soft);
+  padding:7px 13px;cursor:pointer;font-family:var(--sans);font-weight:500;
+}
+.seg button[aria-pressed="true"]{background:var(--green);color:#fff}
+.seg button:hover:not([aria-pressed="true"]){background:var(--green-lt)}
+.state-search-wrap{display:flex;align-items:center;gap:8px;margin-left:auto}
+.state-search{
+  font-size:13px;border:1px solid var(--border);border-radius:7px;
+  padding:7px 10px;background:var(--bg);width:160px;
+}
+.state-search:focus{outline:2px solid var(--green-mid)}
+
+/* ── Main layout ── */
+.main{display:grid;grid-template-columns:220px 1fr;min-height:500px}
+@media(max-width:700px){.main{grid-template-columns:1fr}}
+
+/* ── Sidebar ── */
+.sidebar{
+  border-right:1px solid var(--border);background:var(--surface);
+  padding:16px 0;
+}
+.cat-header{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:10px 16px 6px;
+}
+.ind-btn{
+  display:block;width:100%;text-align:left;border:0;background:transparent;
+  padding:8px 16px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;
+  border-left:3px solid transparent;transition:all .12s;line-height:1.3;
+}
+.ind-btn:hover{background:var(--green-lt);color:var(--green)}
+.ind-btn.active{
+  background:var(--green-lt);color:var(--green);
+  border-left-color:var(--green);font-weight:600;
+}
+@media(max-width:700px){
+  .sidebar{border-right:none;border-bottom:1px solid var(--border);padding:8px 0}
+  .ind-btn{padding:6px 14px;font-size:13px}
+}
+
+/* ── Content ── */
+.content{padding:20px 22px 32px;min-width:0}
+
+/* ── Indicator header ── */
+.ind-header{margin-bottom:18px}
+.ind-title{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.ind-desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:8px}
+.ind-meta{display:flex;flex-wrap:wrap;gap:10px}
+.badge{
+  font-family:var(--mono);font-size:11px;padding:3px 9px;
+  border-radius:20px;border:1px solid var(--border);color:var(--muted);
+}
+.badge.better{border-color:#2D8A72;color:#1A5C4E;background:var(--green-lt)}
+.badge.worse{border-color:#B03A2E;color:#8B2A20;background:var(--red-lt)}
+
+/* ── Key stats ── */
+.key-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:2px;background:var(--border);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:20px;
+}
+.kstat{background:var(--surface);padding:14px 16px}
+.kstat .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.kstat .v{font-size:20px;font-weight:700}
+.kstat .s{font-size:12px;color:var(--muted);margin-top:2px}
+.up{color:var(--green-mid)} .dn{color:var(--red)}
+
+/* ── Chart ── */
+.chart-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 14px 12px;margin-bottom:20px;
+  position:relative;
+}
+.chart-title{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--ink-soft)}
+svg.bar{display:block;width:100%;overflow:visible}
+
+/* ── Table ── */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);padding:9px 14px;text-align:left;
+  background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+th.r,td.r{text-align:right}
+td{padding:8px 14px;border-bottom:1px solid var(--border)}
+td.mono{font-family:var(--mono)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--green-lt)}
+.rank-badge{
+  display:inline-block;font-family:var(--mono);font-size:11px;
+  width:28px;text-align:right;color:var(--muted);
+}
+.bar-cell{display:flex;align-items:center;gap:8px;min-width:120px}
+.bar-inline{height:14px;border-radius:3px;background:var(--green-mid);min-width:2px}
+
+/* ── Footer ── */
+.footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:14px 22px;font-size:12px;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;
+}
+.footer a{color:var(--green)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>Social Determinants of Health</h1>
+      <p class="sub">Census ACS indicators across all 50 states + D.C. — Economy League of Greater Philadelphia</p>
+    </div>
+    <div class="vintage-badge" id="vintageBadge">
+      <span class="dot"></span> Loading…
+    </div>
+  </div>
+</div>
+
+<!-- LOADING STATE -->
+<div class="state-msg" id="loadingMsg">
+  <div class="spinner"></div>
+  Fetching latest data…
+</div>
+
+<!-- ERROR STATE -->
+<div class="state-msg" id="errorMsg" style="display:none">
+  <p>⚠️ Could not load dashboard data. Please try again later.</p>
+  <p style="margin-top:8px;font-size:13px" id="errorDetail"></p>
+</div>
+
+<!-- MAIN APP (hidden until data loads) -->
+<div id="app" style="display:none">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div>
+      <div class="ctl-label" style="margin-bottom:4px">Sort</div>
+      <div class="seg">
+        <button id="btnHigh" aria-pressed="true" onclick="setSort('desc')">High → Low</button>
+        <button id="btnLow"  aria-pressed="false" onclick="setSort('asc')">Low → High</button>
+        <button id="btnAlpha" aria-pressed="false" onclick="setSort('alpha')">A–Z</button>
+      </div>
+    </div>
+    <div>
+      <div class="ctl-label" style="margin-bottom:4px">View</div>
+      <div class="seg">
+        <button id="btnChart" aria-pressed="true" onclick="setView('chart')">Chart</button>
+        <button id="btnTable" aria-pressed="false" onclick="setView('table')">Table</button>
+      </div>
+    </div>
+    <div class="state-search-wrap">
+      <input class="state-search" type="text" placeholder="🔍 Filter states…" oninput="setFilter(this.value)">
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar"></nav>
+
+    <!-- CONTENT -->
+    <div class="content" id="content"></div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Source: U.S. Census Bureau, American Community Survey 1-year estimates · <a href="https://www.census.gov/data/developers/data-sets/acs-1year.html" target="_blank">census.gov</a></span>
+  <span id="footerMeta"></span>
+</div>
+
+<script>
+// ─── Config ────────────────────────────────────────────────────────────────
+// DATA_URL points to the raw data.json in your GitHub repo.
+// After setting up your repo, update this to your actual raw URL.
+const DATA_URL = "https://raw.githubusercontent.com/YOUR_ORG/YOUR_REPO/main/data/data.json";
+
+// ─── State ─────────────────────────────────────────────────────────────────
+let DATA        = null;
+let activeInd   = null;
+let sortMode    = "desc";
+let viewMode    = "chart";
+let filterText  = "";
+
+// ─── Boot ───────────────────────────────────────────────────────────────────
+async function boot() {
+  try {
+    const r = await fetch(DATA_URL);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    DATA = await r.json();
+  } catch (e) {
+    document.getElementById("loadingMsg").style.display = "none";
+    document.getElementById("errorMsg").style.display  = "";
+    document.getElementById("errorDetail").textContent = e.message;
+    return;
+  }
+  document.getElementById("loadingMsg").style.display = "none";
+  document.getElementById("app").style.display        = "";
+
+  // Vintage badge
+  const meta = DATA.meta;
+  document.getElementById("vintageBadge").innerHTML =
+    `<span class="dot"></span> ACS ${meta.vintage} · Updated ${meta.published_at?.slice(0,10) ?? meta.pulled_at?.slice(0,10)}`;
+  document.getElementById("footerMeta").textContent =
+    `ACS ${meta.vintage} 1-year estimates · Refreshed ${meta.published_at?.slice(0,10) ?? "—"}${meta.notes ? " · " + meta.notes : ""}`;
+
+  buildSidebar();
+  // Default to first indicator
+  activeInd = Object.keys(DATA.indicators)[0];
+  renderContent();
+}
+
+// ─── Sidebar ────────────────────────────────────────────────────────────────
+function buildSidebar() {
+  const el = document.getElementById("sidebar");
+  el.innerHTML = "";
+  let currentCat = null;
+
+  Object.entries(DATA.indicators).forEach(([key, ind]) => {
+    if (ind.category !== currentCat) {
+      currentCat = ind.category;
+      const h = document.createElement("div");
+      h.className = "cat-header";
+      h.textContent = currentCat;
+      el.appendChild(h);
+    }
+    const btn = document.createElement("button");
+    btn.className = "ind-btn" + (key === activeInd ? " active" : "");
+    btn.textContent = ind.label;
+    btn.onclick = () => { activeInd = key; buildSidebar(); renderContent(); };
+    el.appendChild(btn);
+  });
+}
+
+// ─── Content ────────────────────────────────────────────────────────────────
+function renderContent() {
+  const el = document.getElementById("content");
+  const ind = DATA.indicators[activeInd];
+  if (!ind) { el.innerHTML = "<p>Select an indicator.</p>"; return; }
+
+  const states = Object.entries(ind.states)
+    .filter(([, s]) => s.value !== null)
+    .filter(([, s]) => !filterText || s.name.toLowerCase().includes(filterText.toLowerCase()));
+
+  const sorted = [...states].sort(([,a],[,b]) => {
+    if (sortMode === "alpha") return a.name.localeCompare(b.name);
+    return sortMode === "desc" ? b.value - a.value : a.value - b.value;
+  });
+
+  const values = sorted.map(([,s]) => s.value);
+  const maxVal = Math.max(...values);
+  const minVal = Math.min(...values);
+  const avgVal = values.reduce((a,b)=>a+b,0) / values.length;
+
+  function fmt(v) {
+    if (v === null || v === undefined) return "—";
+    if (ind.unit === "dollars") return "$" + Math.round(v).toLocaleString("en-US");
+    return v.toFixed(1) + "%";
+  }
+
+  // Key stats
+  const topState = sorted[0];
+  const botState = sorted[sorted.length-1];
+
+  const higherClass = ind.higher_is === "better" ? "better" : ind.higher_is === "worse" ? "worse" : "";
+
+  let html = `
+    <div class="ind-header">
+      <div class="ind-title">${ind.label}</div>
+      <div class="ind-desc">${ind.description}</div>
+      <div class="ind-meta">
+        <span class="badge">ACS ${DATA.meta.vintage} · ${DATA.meta.survey}</span>
+        <span class="badge">Unit: ${ind.unit}</span>
+        ${ind.higher_is !== "neutral" ? `<span class="badge ${higherClass}">Higher = ${ind.higher_is}</span>` : ""}
+      </div>
+    </div>
+
+    <div class="key-stats">
+      <div class="kstat">
+        <div class="k">Highest</div>
+        <div class="v">${fmt(topState?.[1]?.value)}</div>
+        <div class="s">${topState?.[1]?.name ?? "—"}</div>
+      </div>
+      <div class="kstat">
+        <div class="k">Lowest</div>
+        <div class="v">${fmt(botState?.[1]?.value)}</div>
+        <div class="s">${botState?.[1]?.name ?? "—"}</div>
+      </div>
+      <div class="kstat">
+        <div class="k">Median (51)</div>
+        <div class="v">${fmt(values[Math.floor(values.length/2)])}</div>
+        <div class="s">Middle state</div>
+      </div>
+      <div class="kstat">
+        <div class="k">Average</div>
+        <div class="v">${fmt(avgVal)}</div>
+        <div class="s">Unweighted</div>
+      </div>
+      ${ind.unit === "dollars" && activeInd === "median_household_income"
+        ? `<div class="kstat"><div class="k">National ACS</div><div class="v">${fmt(DATA.meta.national_median_income)}</div><div class="s">Benchmark</div></div>`
+        : ""}
+    </div>`;
+
+  if (viewMode === "chart") {
+    // Horizontal bar chart via SVG
+    const BAR_H = 22, GAP = 4, LABEL_W = 160, VAL_W = 80;
+    const chartH = sorted.length * (BAR_H + GAP);
+    const trackW = 460;
+
+    let bars = "";
+    sorted.forEach(([fips, s], i) => {
+      const y = i * (BAR_H + GAP);
+      const pct = maxVal > 0 ? (s.value / maxVal) : 0;
+      const bw = Math.max(2, pct * trackW);
+      const isPa = fips === "42";
+      const color = isPa ? "#B07C1A" : (ind.higher_is === "worse" ? "#C0504D" : "#2D8A72");
+      bars += `
+        <g transform="translate(0,${y})">
+          <text x="${LABEL_W-8}" y="${BAR_H/2+5}" text-anchor="end" font-size="12"
+            font-family="system-ui,sans-serif" fill="${isPa?"#B07C1A":"#3B4C44"}"
+            font-weight="${isPa?700:400}">${s.name}</text>
+          <rect x="${LABEL_W}" y="4" width="${bw}" height="${BAR_H-8}" rx="3" fill="${color}" opacity="${isPa?1:.75}"/>
+          <text x="${LABEL_W+bw+6}" y="${BAR_H/2+5}" font-size="12"
+            font-family="ui-monospace,monospace" fill="#1A2820">${fmt(s.value)}</text>
+        </g>`;
+    });
+
+    html += `<div class="chart-wrap">
+      <div class="chart-title">All states ranked · ${ind.label} · ACS ${DATA.meta.vintage}
+        ${fips==="42"?"· <span style='color:#B07C1A'>Pennsylvania highlighted</span>":""}</div>
+      <svg class="bar" viewBox="0 0 ${LABEL_W+trackW+VAL_W} ${chartH}" style="height:${Math.max(300,chartH)}px">
+        ${bars}
+      </svg>
+    </div>`;
+  } else {
+    // Table view
+    let rows = "";
+    sorted.forEach(([fips, s], i) => {
+      const rank = i + 1;
+      const pct = maxVal > 0 ? (s.value / maxVal) : 0;
+      const bw = Math.max(2, pct * 80);
+      const isPa = fips === "42";
+      rows += `<tr${isPa?' style="background:#FDF6E8"':""}>
+        <td><span class="rank-badge">#${rank}</span></td>
+        <td style="${isPa?"font-weight:700;color:#B07C1A":""}">${s.name}</td>
+        <td class="mono r">${fmt(s.value)}</td>
+        <td>
+          <div class="bar-cell">
+            <div class="bar-inline" style="width:${bw}px;background:${ind.higher_is==='worse'?'#C0504D':'#2D8A72'}"></div>
+          </div>
+        </td>
+      </tr>`;
+    });
+    html += `<div class="tbl-wrap"><table>
+      <thead><tr>
+        <th>Rank</th><th>State</th><th class="r">${ind.label}</th><th>Distribution</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+// ─── Controls ───────────────────────────────────────────────────────────────
+function setSort(m) {
+  sortMode = m;
+  ["High","Low","Alpha"].forEach(x => {
+    document.getElementById("btn"+x).setAttribute("aria-pressed", m===x.toLowerCase()||
+      (m==="desc"&&x==="High")||(m==="asc"&&x==="Low")||(m==="alpha"&&x==="Alpha"));
+  });
+  renderContent();
+}
+function setView(v) {
+  viewMode = v;
+  document.getElementById("btnChart").setAttribute("aria-pressed", v==="chart");
+  document.getElementById("btnTable").setAttribute("aria-pressed", v==="table");
+  renderContent();
+}
+function setFilter(v) { filterText = v; renderContent(); }
+
+boot();
+</script>
+</body>
+</html>
