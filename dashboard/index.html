@@ -2,456 +2,630 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ELGP — Social Determinants of Health Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDOH State Indicators — Economy League of Greater Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:        #F6F7F4;
-  --surface:   #FFFFFF;
-  --border:    #E0E4DE;
-  --ink:       #1A2820;
-  --ink-soft:  #3B4C44;
-  --muted:     #7A8C82;
-  --green:     #1A5C4E;
-  --green-mid: #2D8A72;
-  --green-lt:  #E6F2EE;
-  --gold:      #B07C1A;
-  --red:       #B03A2E;
-  --red-lt:    #F5E8E6;
-  --mono:      ui-monospace,"Cascadia Code","SF Mono",Menlo,monospace;
-  --sans:      system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --radius:    10px;
+:root{
+  --bg:#F5F5F3;--surface:#fff;--border:#E2E2DE;--border2:#C4C4C0;
+  --ink:#18181A;--ink2:#44444A;--ink3:#74747A;
+  --blue:#1868AD;--blue-dk:#124F84;--blue-lt:#EBF3FA;
+  --amber:#7A5200;--amber-lt:#FBF4E2;
+  --green:#1A6B4A;--green-lt:#E6F3ED;
+  --red:#8B2218;--red-lt:#FBEAE8;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;-webkit-text-size-adjust:100%}
+html{font-size:14px}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
-
-/* ── Header ── */
-.header{
-  background:var(--green);color:#fff;
-  padding:24px 28px 20px;
-}
-.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
-.header h1{font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.header .sub{font-size:13px;opacity:.8;margin-top:6px;max-width:60ch}
-.vintage-badge{
-  font-family:var(--mono);font-size:12px;
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
-  border-radius:20px;padding:5px 12px;white-space:nowrap;
-  display:flex;align-items:center;gap:6px;
-}
-.vintage-badge .dot{width:7px;height:7px;border-radius:50%;background:#6FCFB4}
-
-/* ── Loading / Error ── */
-.state-msg{
-  text-align:center;padding:60px 20px;color:var(--muted);
-  font-size:15px;
-}
-.state-msg .spinner{
-  width:32px;height:32px;border:3px solid var(--border);
-  border-top-color:var(--green-mid);border-radius:50%;
-  animation:spin .8s linear infinite;margin:0 auto 16px;
-}
+.hdr{background:#fff;border-bottom:2px solid var(--blue);display:flex;align-items:center;height:62px;padding:0 24px}
+.hdr-logo{display:flex;align-items:center;padding-right:20px;border-right:1px solid var(--border);flex-shrink:0}
+.hdr-logo img{height:28px;display:block}
+.hdr-mid{flex:1;padding:0 20px}
+.hdr-mid h1{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.2}
+.hdr-mid p{font-size:11px;color:var(--ink3);margin-top:1px}
+.hdr-right{display:flex;align-items:center;gap:10px;padding-left:20px;border-left:1px solid var(--border);flex-shrink:0}
+.year-ctl{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.year-ctl select{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--bg);border:1px solid var(--border2);border-radius:3px;padding:4px 7px;cursor:pointer}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#22C55E;flex-shrink:0}
+.mcp-link{font-family:var(--mono);font-size:10px;color:var(--ink3);text-decoration:none;border:1px solid var(--border2);border-radius:3px;padding:4px 8px;white-space:nowrap;transition:all .1s}
+.mcp-link:hover{color:var(--blue);border-color:var(--blue);background:var(--blue-lt)}
+.howto{background:var(--blue-lt);border-bottom:1px solid #C8DDED;padding:8px 24px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.hwstep{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--blue-dk)}
+.hwnum{width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hwstep strong{font-weight:600}.hwstep span{opacity:.7;font-size:11px}
+.hwarr{color:var(--blue);opacity:.4;font-size:14px}
+.hw-dismiss{margin-left:auto;border:0;background:transparent;color:var(--ink3);cursor:pointer;font-size:11px;padding:4px 6px}
+.loader{text-align:center;padding:80px;color:var(--ink3)}
+.spinner{width:22px;height:22px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .6s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── Controls ── */
-.controls{
-  background:var(--surface);border-bottom:1px solid var(--border);
-  padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
-  position:sticky;top:0;z-index:10;
-}
-.ctl-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-select{
-  font-family:var(--sans);font-size:13px;color:var(--ink);
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:7px;padding:7px 10px;cursor:pointer;
-}
-select:focus{outline:2px solid var(--green-mid);outline-offset:0}
-.seg{display:flex;border:1px solid var(--border);border-radius:7px;overflow:hidden;background:var(--bg)}
-.seg button{
-  font-size:13px;border:0;background:transparent;color:var(--ink-soft);
-  padding:7px 13px;cursor:pointer;font-family:var(--sans);font-weight:500;
-}
-.seg button[aria-pressed="true"]{background:var(--green);color:#fff}
-.seg button:hover:not([aria-pressed="true"]){background:var(--green-lt)}
-.state-search-wrap{display:flex;align-items:center;gap:8px;margin-left:auto}
-.state-search{
-  font-size:13px;border:1px solid var(--border);border-radius:7px;
-  padding:7px 10px;background:var(--bg);width:160px;
-}
-.state-search:focus{outline:2px solid var(--green-mid)}
-
-/* ── Main layout ── */
-.main{display:grid;grid-template-columns:220px 1fr;min-height:500px}
-@media(max-width:700px){.main{grid-template-columns:1fr}}
-
-/* ── Sidebar ── */
-.sidebar{
-  border-right:1px solid var(--border);background:var(--surface);
-  padding:16px 0;
-}
-.cat-header{
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);padding:10px 16px 6px;
-}
-.ind-btn{
-  display:block;width:100%;text-align:left;border:0;background:transparent;
-  padding:8px 16px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;
-  border-left:3px solid transparent;transition:all .12s;line-height:1.3;
-}
-.ind-btn:hover{background:var(--green-lt);color:var(--green)}
-.ind-btn.active{
-  background:var(--green-lt);color:var(--green);
-  border-left-color:var(--green);font-weight:600;
-}
-@media(max-width:700px){
-  .sidebar{border-right:none;border-bottom:1px solid var(--border);padding:8px 0}
-  .ind-btn{padding:6px 14px;font-size:13px}
-}
-
-/* ── Content ── */
-.content{padding:20px 22px 32px;min-width:0}
-
-/* ── Indicator header ── */
-.ind-header{margin-bottom:18px}
-.ind-title{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
-.ind-desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:8px}
-.ind-meta{display:flex;flex-wrap:wrap;gap:10px}
-.badge{
-  font-family:var(--mono);font-size:11px;padding:3px 9px;
-  border-radius:20px;border:1px solid var(--border);color:var(--muted);
-}
-.badge.better{border-color:#2D8A72;color:#1A5C4E;background:var(--green-lt)}
-.badge.worse{border-color:#B03A2E;color:#8B2A20;background:var(--red-lt)}
-
-/* ── Key stats ── */
-.key-stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:2px;background:var(--border);border-radius:var(--radius);
-  overflow:hidden;margin-bottom:20px;
-}
-.kstat{background:var(--surface);padding:14px 16px}
-.kstat .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.kstat .v{font-size:20px;font-weight:700}
-.kstat .s{font-size:12px;color:var(--muted);margin-top:2px}
-.up{color:var(--green-mid)} .dn{color:var(--red)}
-
-/* ── Chart ── */
-.chart-wrap{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:16px 14px 12px;margin-bottom:20px;
-  position:relative;
-}
-.chart-title{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--ink-soft)}
-svg.bar{display:block;width:100%;overflow:visible}
-
-/* ── Table ── */
-.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{
-  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);padding:9px 14px;text-align:left;
-  background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap;
-}
+.shell{display:grid;grid-template-columns:210px 1fr;min-height:600px}
+@media(max-width:700px){.shell{grid-template-columns:1fr}}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto}
+.sb-intro{padding:12px 14px 10px;border-bottom:1px solid var(--border);font-size:11.5px;color:var(--ink3)}
+.sb-intro strong{display:block;font-size:12px;color:var(--ink2);margin-bottom:2px}
+.cat-head{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);padding:13px 14px 4px}
+.cat-head:not(:first-of-type){border-top:1px solid var(--border)}
+.ind-btn{display:block;width:100%;text-align:left;border:0;background:transparent;padding:7px 14px;font-size:12.5px;font-family:var(--sans);color:var(--ink2);cursor:pointer;border-left:3px solid transparent;line-height:1.3;transition:all .1s}
+.ind-btn:hover{background:var(--blue-lt);color:var(--blue-dk)}
+.ind-btn.on{background:var(--blue-lt);color:var(--blue-dk);border-left-color:var(--blue);font-weight:600}
+.content{padding:20px 24px 48px;min-width:0;overflow:hidden}
+.ind-head{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ind-head h2{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.ind-head-desc{font-size:13px;color:var(--ink3);margin-top:3px;max-width:72ch;line-height:1.5}
+.ind-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.itag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:3px;border:1px solid var(--border2);color:var(--ink3)}
+.itag.better{background:var(--green-lt);border-color:#90CDB0;color:var(--green)}
+.itag.worse{background:var(--red-lt);border-color:#E0A8A2;color:var(--red)}
+.note-box{border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 5px 5px 0;padding:11px 15px;margin-bottom:14px;font-size:12.5px;color:var(--ink2);line-height:1.65;background:var(--surface)}
+.note-box-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:4px}
+.tab-explainer{border:1px solid var(--border);border-radius:5px;padding:12px 15px;margin-bottom:14px;font-size:12.5px;color:var(--ink2);line-height:1.65;background:var(--surface)}
+.tab-explainer strong{display:block;margin-bottom:4px;color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--surface);padding:12px 14px}
+.kpi-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.kpi-val{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.kpi-val.pa{color:var(--amber)}
+.kpi-sub{font-size:11px;color:var(--ink3);margin-top:3px}
+.kpi-note{font-size:10px;color:var(--blue);margin-top:2px}
+.ctx{background:var(--blue-lt);border:1px solid #C4DDED;border-radius:5px;padding:9px 13px;margin-bottom:14px;font-size:12.5px;color:var(--blue-dk);line-height:1.55}
+.tab-row{display:flex;border-bottom:1px solid var(--border);margin-bottom:16px}
+.tab-btn{font-family:var(--sans);font-size:13px;font-weight:500;border:0;background:transparent;color:var(--ink3);padding:9px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:5px}
+.tab-btn.on{color:var(--blue);border-bottom-color:var(--blue)}
+.tab-btn:hover:not(.on){color:var(--ink)}
+.cbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:12px}
+.cbar-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.seg{display:flex;border:1px solid var(--border2);border-radius:4px;overflow:hidden}
+.seg button{font-size:12px;font-family:var(--sans);font-weight:500;border:0;background:var(--surface);color:var(--ink2);padding:6px 11px;cursor:pointer}
+.seg button.on{background:var(--blue);color:#fff}
+.seg button:hover:not(.on){background:var(--blue-lt);color:var(--blue-dk)}
+.flt{font-family:var(--sans);font-size:12.5px;color:var(--ink);border:1px solid var(--border2);border-radius:4px;padding:6px 10px;background:var(--surface);width:155px}
+.flt:focus{outline:2px solid var(--blue);outline-offset:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px;margin-bottom:14px}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
+.card-title{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.card-sub{font-size:11px;color:var(--ink3);margin-bottom:12px;line-height:1.5}
+.card-scroll{overflow-x:auto}
+.dl-btn{font-family:var(--mono);font-size:10px;padding:3px 9px;border:1px solid var(--border2);border-radius:3px;background:var(--surface);color:var(--ink3);cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0}
+.dl-btn:hover{color:var(--blue);border-color:var(--blue);background:var(--blue-lt)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:4px;margin-bottom:10px}
+.li{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink2)}
+.ls{width:18px;height:3px;border-radius:2px;flex-shrink:0}
+.ls.dash{background:repeating-linear-gradient(90deg,#555 0,#555 5px,transparent 5px,transparent 8px)}
+.li-note{font-size:11px;color:var(--ink3);margin-left:auto}
+.insights{background:var(--amber-lt);border-left:3px solid #C49A3A;border-radius:0 5px 5px 0;padding:11px 14px;margin-bottom:12px}
+.ins-head{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:7px}
+.ins-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ins-list li{font-size:12.5px;color:var(--ink2);padding-left:14px;position:relative;line-height:1.5}
+.ins-list li::before{content:'→';position:absolute;left:0;color:var(--amber);font-size:11px;top:1px}
+.pills-wrap{margin-bottom:10px}
+.pills-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.pills{display:flex;flex-wrap:wrap;gap:4px;max-height:84px;overflow-y:auto;padding:2px}
+.pill{font-family:var(--mono);font-size:10.5px;padding:3px 7px;border-radius:3px;border:1px solid var(--border2);background:var(--surface);color:var(--ink2);cursor:pointer;transition:all .1s}
+.pill:hover{border-color:var(--blue);color:var(--blue)}
+.pill.on{color:#fff;border-color:transparent}
+.scat-ctrl{display:grid;grid-template-columns:1fr 40px 1fr;gap:10px;align-items:end;margin-bottom:12px}
+.ax-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.ax-sel{font-family:var(--sans);font-size:12.5px;color:var(--ink);border:1px solid var(--border2);border-radius:4px;padding:7px 9px;background:var(--surface);cursor:pointer;width:100%}
+.ax-sel:focus{outline:2px solid var(--blue);outline-offset:0}
+.scat-vs{text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink3);padding-bottom:8px}
+.tbl-wrap{border:1px solid var(--border);border-radius:6px;overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:380px}
+thead th{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding:9px 13px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap}
 th.r,td.r{text-align:right}
-td{padding:8px 14px;border-bottom:1px solid var(--border)}
-td.mono{font-family:var(--mono)}
+td{padding:8px 13px;border-bottom:1px solid var(--border)}
+td.num{font-family:var(--mono)}
 tbody tr:last-child td{border-bottom:0}
-tbody tr:hover{background:var(--green-lt)}
-.rank-badge{
-  display:inline-block;font-family:var(--mono);font-size:11px;
-  width:28px;text-align:right;color:var(--muted);
-}
-.bar-cell{display:flex;align-items:center;gap:8px;min-width:120px}
-.bar-inline{height:14px;border-radius:3px;background:var(--green-mid);min-width:2px}
-
-/* ── Footer ── */
-.footer{
-  background:var(--surface);border-top:1px solid var(--border);
-  padding:14px 22px;font-size:12px;color:var(--muted);
-  display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;
-}
-.footer a{color:var(--green)}
+tbody tr:hover{background:var(--blue-lt)}
+.tbl-bar-wrap{display:flex;align-items:center;gap:6px;min-width:80px}
+.tbl-bar{height:10px;border-radius:2px;min-width:2px}
+.pa-row{background:#FBF8EF!important}
+.pa-row td:nth-child(2){font-weight:600;color:var(--amber)}
+.tip{position:fixed;background:#18181A;color:#fff;border-radius:5px;padding:10px 13px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .08s;z-index:300;min-width:170px;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.tip.show{opacity:1}
+.tip-yr{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.tip-row{display:flex;align-items:center;gap:7px;margin:3px 0}
+.tip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tip-val{font-family:var(--mono);margin-left:auto;padding-left:14px;font-weight:500}
+.tip-name{font-weight:600;font-size:13px;margin-bottom:5px}
+.tip-r2{font-size:11.5px;color:rgba(255,255,255,.65);margin:2px 0;display:flex;justify-content:space-between;gap:10px}
+.empty{text-align:center;padding:48px 24px;color:var(--ink3)}
+.empty p{font-size:14px;color:var(--ink2);font-weight:500;margin:8px 0 4px}
+.empty small{font-size:12.5px}
+.footer{background:var(--surface);border-top:2px solid var(--border);padding:18px 24px;display:flex;gap:24px;align-items:flex-start}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;padding-right:24px;border-right:1px solid var(--border)}
+.footer-logo img{height:22px;display:block}
+.footer-body{flex:1;font-size:11.5px;color:var(--ink3);line-height:1.7}
+.footer-body strong{color:var(--ink2)}
+.footer-body a{color:var(--blue);text-decoration:none}
+.footer-body a:hover{text-decoration:underline}
+.footer-right{font-family:var(--mono);font-size:10.5px;color:var(--ink3);text-align:right;line-height:1.7;flex-shrink:0;padding-left:24px;border-left:1px solid var(--border)}
+.footer-right strong{color:var(--ink2);display:block}
+@media(max-width:680px){.footer{flex-direction:column}.footer-logo,.footer-right{border:none;padding:0}}
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="header-top">
-    <div>
-      <h1>Social Determinants of Health</h1>
-      <p class="sub">Census ACS indicators across all 50 states + D.C. — Economy League of Greater Philadelphia</p>
-    </div>
-    <div class="vintage-badge" id="vintageBadge">
-      <span class="dot"></span> Loading…
-    </div>
+<header class="hdr">
+  <div class="hdr-logo"><img src="data:image/png;base64,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" alt="Economy League of Greater Philadelphia"></div>
+  <div class="hdr-mid">
+    <h1>Social Determinants of Health — State Indicators</h1>
+    <p>15 Census ACS indicators · All 50 states + D.C. · Economy League of Greater Philadelphia</p>
   </div>
+  <div class="hdr-right">
+    <div class="year-ctl"><span class="live-dot"></span><span>Data year:</span><select id="yearSel"><option value="2024">2024 (latest)</option></select></div>
+    <a class="mcp-link" href="https://elgp-census-mcp.onrender.com" target="_blank">⬡ MCP Server</a>
+  </div>
+</header>
+<div class="howto" id="howto">
+  <div class="hwstep"><div class="hwnum">1</div><div><strong>Pick an indicator</strong> <span>from the sidebar</span></div></div>
+  <div class="hwarr">›</div>
+  <div class="hwstep"><div class="hwnum">2</div><div><strong>Choose a view</strong> <span>Bar · Trend · Scatter · Table</span></div></div>
+  <div class="hwarr">›</div>
+  <div class="hwstep"><div class="hwnum">3</div><div><strong>Explore</strong> <span>filter, compare, highlight states</span></div></div>
+  <div class="hwarr">›</div>
+  <div class="hwstep"><div class="hwnum">4</div><div><strong>Download</strong> <span>any chart as PNG</span></div></div>
+  <button class="hw-dismiss" onclick="document.getElementById('howto').style.display='none'">✕ Dismiss</button>
 </div>
-
-<!-- LOADING STATE -->
-<div class="state-msg" id="loadingMsg">
-  <div class="spinner"></div>
-  Fetching latest data…
-</div>
-
-<!-- ERROR STATE -->
-<div class="state-msg" id="errorMsg" style="display:none">
-  <p>⚠️ Could not load dashboard data. Please try again later.</p>
-  <p style="margin-top:8px;font-size:13px" id="errorDetail"></p>
-</div>
-
-<!-- MAIN APP (hidden until data loads) -->
+<div class="loader" id="loader"><div class="spinner"></div>Loading…</div>
+<div id="errMsg" style="display:none;text-align:center;padding:60px;color:var(--ink3)"></div>
 <div id="app" style="display:none">
-
-  <!-- CONTROLS -->
-  <div class="controls">
-    <div>
-      <div class="ctl-label" style="margin-bottom:4px">Sort</div>
-      <div class="seg">
-        <button id="btnHigh" aria-pressed="true" onclick="setSort('desc')">High → Low</button>
-        <button id="btnLow"  aria-pressed="false" onclick="setSort('asc')">Low → High</button>
-        <button id="btnAlpha" aria-pressed="false" onclick="setSort('alpha')">A–Z</button>
-      </div>
-    </div>
-    <div>
-      <div class="ctl-label" style="margin-bottom:4px">View</div>
-      <div class="seg">
-        <button id="btnChart" aria-pressed="true" onclick="setView('chart')">Chart</button>
-        <button id="btnTable" aria-pressed="false" onclick="setView('table')">Table</button>
-      </div>
-    </div>
-    <div class="state-search-wrap">
-      <input class="state-search" type="text" placeholder="🔍 Filter states…" oninput="setFilter(this.value)">
-    </div>
-  </div>
-
-  <div class="main">
-    <!-- SIDEBAR -->
+  <div class="shell">
     <nav class="sidebar" id="sidebar"></nav>
-
-    <!-- CONTENT -->
-    <div class="content" id="content"></div>
+    <main class="content" id="content"></main>
   </div>
-
 </div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <span>Source: U.S. Census Bureau, American Community Survey 1-year estimates · <a href="https://www.census.gov/data/developers/data-sets/acs-1year.html" target="_blank">census.gov</a></span>
-  <span id="footerMeta"></span>
-</div>
-
+<footer class="footer">
+  <div class="footer-logo"><img src="data:image/png;base64,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" alt="ELGP"></div>
+  <div class="footer-body">
+    <strong>Data:</strong> U.S. Census Bureau, American Community Survey 1-year estimates — Tables B19013, S1701, S2301, B22003, S1501, S2701, S1810, B25064, B25003, B25070, B05002, B16010, B11012, B28002<br>
+    Values are survey-based estimates with margins of error. Small interstate differences may not be statistically significant. No ACS 1-year estimates were released for 2020 due to COVID-19 data collection disruption.<br>
+    <a href="https://www.census.gov/data/developers/data-sets/acs-1year.html" target="_blank">census.gov/data/developers</a> ·
+    <a href="https://api.census.gov/data/key_signup.html" target="_blank">Get Census API key</a> ·
+    Built with <a href="https://elgp-census-mcp.onrender.com" target="_blank">elgp-census-sdoh MCP</a>
+  </div>
+  <div class="footer-right" id="footerRight">—</div>
+</footer>
+<div class="tip" id="tip"></div>
 <script>
-// ─── Config ────────────────────────────────────────────────────────────────
-// DATA_URL points to the raw data.json in your GitHub repo.
-// After setting up your repo, update this to your actual raw URL.
-const DATA_URL = "https://raw.githubusercontent.com/salo0504/census-sdoh-dashboard/refs/heads/main/data/data.json";
+const DATA_URL="https://raw.githubusercontent.com/salo0504/census-sdoh-dashboard/main/data/data.json";
+const HIST={
+  years:[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024],
+  nat:[46242,48451,50740,51369,49777,49276,50054,51017,51939,53482,55775,57617,60336,63179,65712,69717,74580,80002,81604],
+  st:{
+    AL:{n:"Alabama",v:[36796,37820,40474,41415,40489,40072,40558,41574,41415,43464,43623,44765,46472,48123,51734,52035,55924,58418,66659]},
+    AK:{n:"Alaska",v:[57071,59393,64333,68460,66521,66521,67825,67712,69038,70760,73355,73181,73181,73181,75463,77790,85982,88227,95665]},
+    AZ:{n:"Arizona",v:[45685,48209,50958,50958,48745,47279,47826,50256,50006,50068,51492,53558,56213,59246,62055,62055,69056,79571,81486]},
+    AR:{n:"Arkansas",v:[35471,36538,38134,38599,37823,37823,38618,39267,39785,40511,40511,41995,44334,46957,48952,48952,54432,60477,62106]},
+    CA:{n:"California",v:[51755,54385,57014,59928,58931,54459,55730,58328,60190,61933,64500,67739,71805,75277,78672,84097,91551,98274,100149]},
+    CO:{n:"Colorado",v:[50047,53097,55212,56456,55430,55456,56765,58433,58405,60940,63909,67098,69117,72331,77127,82254,89273,95714,97113]},
+    CT:{n:"Connecticut",v:[61926,65258,68595,67034,67721,64032,64032,67098,67098,69461,71346,72812,74168,76106,78833,83572,90213,94312,96049]},
+    DE:{n:"Delaware",v:[52833,55257,57065,57065,55257,56860,58415,59878,59878,59878,60509,61757,63036,65627,70176,72235,79325,83666,87534]},
+    DC:{n:"D.C.",v:[46404,54317,57369,57369,59290,61835,64267,67572,67572,70848,72935,79931,82604,86420,92266,90842,101722,111555,109707]},
+    FL:{n:"Florida",v:[43717,45495,47804,47804,44634,44299,44736,46036,46036,47212,48900,50860,52594,55462,59227,59734,67621,75213,77735]},
+    GA:{n:"Georgia",v:[44385,46055,47590,49082,47590,46007,46007,48213,49179,49555,51244,53527,56183,58756,61980,65030,71922,76888,79991]},
+    HI:{n:"Hawaii",v:[58554,61160,63030,67214,63030,63030,63030,68020,68020,70972,70606,74511,77765,80212,83102,87600,94343,98176,100745]},
+    ID:{n:"Idaho",v:[39796,42194,44926,44575,43568,43490,44923,44923,45489,46767,47861,50985,52225,55583,60999,60999,66824,77095,81166]},
+    IL:{n:"Illinois",v:[50578,52006,54124,55735,54124,53234,54408,55137,55137,57166,59196,61229,63306,65030,67522,72205,77326,82647,83211]},
+    IN:{n:"Indiana",v:[44113,45322,47697,47697,44861,45424,46774,48374,48374,49446,50433,52314,54181,56094,58235,60322,65843,71528,71959]},
+    IA:{n:"Iowa",v:[45553,47286,48052,52077,48052,48872,51033,53000,52716,55629,56247,58321,58570,62570,65600,65600,70571,73448,75501]},
+    KS:{n:"Kansas",v:[44236,45973,49218,50185,48059,48935,50200,52205,52205,53906,54253,55900,57928,60609,62087,64124,68685,72324,75514]},
+    KY:{n:"Kentucky",v:[37396,37989,40267,40267,40179,40072,41141,43036,43036,43721,44811,46535,48375,50247,52295,55454,58928,62650,64526]},
+    LA:{n:"Louisiana",v:[35523,38845,40926,42492,42039,40926,42944,44086,44874,45727,45047,46145,46145,47905,50406,52087,55361,60039,60986]},
+    ME:{n:"Maine",v:[43573,44207,45888,46419,45179,45734,46033,47818,48804,50826,51494,54461,55425,57918,59489,63559,68251,75965,76442]},
+    MD:{n:"Maryland",v:[62596,65144,68080,70545,69272,69272,70004,71836,71836,74551,75847,78945,80776,83242,86738,90203,98461,101579,102905]},
+    MA:{n:"Massachusetts",v:[57184,59963,62365,65401,64496,62072,62859,65339,66658,68222,70628,74167,77385,81215,85843,89645,96505,102765,104828]},
+    MI:{n:"Michigan",v:[47950,46031,47950,47950,44476,44476,45981,47954,48411,49576,52006,54909,57144,57144,59584,61367,65716,71098,72389]},
+    MN:{n:"Minnesota",v:[55614,58006,59836,60933,58206,56954,57270,60702,60828,63217,65699,67076,68411,70218,74593,80270,84108,87756,87117]},
+    MS:{n:"Mississippi",v:[31330,34473,36338,37790,37196,36919,36919,37095,37095,39031,40593,41754,43529,45081,46511,48716,52985,55785,59127]},
+    MO:{n:"Missouri",v:[43988,45114,47040,47063,46847,45321,46453,47998,47998,49593,50238,52238,54478,55461,57409,57821,63594,70577,71589]},
+    MT:{n:"Montana",v:[37926,39699,40627,43872,42992,42990,45076,45969,46230,46328,47169,49508,51057,53386,57075,57153,64489,72891,75340]},
+    NE:{n:"Nebraska",v:[45125,47357,49626,51072,50669,50296,52551,53594,53594,55614,56927,57809,59970,62701,66136,68049,72193,76881,76376]},
+    NV:{n:"Nevada",v:[47978,51296,53152,55062,53152,49837,49437,51982,51982,52800,53094,55180,58003,61197,63276,65644,70050,78633,81134]},
+    NH:{n:"New Hampshire",v:[60297,63618,65652,64641,65032,63731,64659,65408,65408,68485,68485,73381,74057,76768,77933,88235,90756,99657,99782]},
+    NJ:{n:"New Jersey",v:[64169,65249,68981,70347,69811,68981,69811,69667,69667,71637,72093,74413,76126,80088,82545,85751,96346,102738,104294]},
+    NM:{n:"New Mexico",v:[36769,37456,40629,41102,43028,43567,43872,44803,44803,44803,45382,45119,46725,49754,51945,53992,58920,64218,67816]},
+    NY:{n:"New York",v:[48818,51384,53514,56033,55233,54659,55246,57369,57369,58003,60850,62765,64894,67844,71117,72108,78806,84462,85820]},
+    NC:{n:"North Carolina",v:[41434,42625,44670,46549,44206,43916,45150,46334,46334,46868,47830,50320,52752,54602,57341,60048,66734,72835,73958]},
+    ND:{n:"North Dakota",v:[40994,43753,46702,51892,51892,55766,57181,57181,60656,60660,61843,60656,61175,64577,65315,68131,71365,79012,77871]},
+    OH:{n:"Ohio",v:[44839,44839,47144,47144,45395,45749,45749,48081,48081,50476,51075,52334,54533,56602,58116,58175,62262,69710,72212]},
+    OK:{n:"Oklahoma",v:[38770,39709,41567,43225,41567,43225,43225,44850,44850,47529,47529,48568,50943,53246,54449,55492,59215,64051,66148]},
+    OR:{n:"Oregon",v:[44293,46816,48457,51232,48457,46816,47882,50159,51075,53270,55551,58503,60834,62818,67058,70084,78283,82507,85220]},
+    PA:{n:"Pennsylvania",v:[45959,47208,49737,50699,49522,49520,50228,52007,52007,53234,55702,56907,60296,61744,63463,63627,68957,75993,77545]},
+    RI:{n:"Rhode Island",v:[52781,54119,55499,57125,54946,54457,54897,54907,54907,57338,58073,60596,63870,67167,70305,75429,84189,87396,83504]},
+    SC:{n:"South Carolina",v:[39838,41047,42539,44203,42539,42367,43707,44623,44623,47238,47238,50570,51015,53077,56227,58978,63623,69767,72350]},
+    SD:{n:"South Dakota",v:[39617,42791,43424,47076,47076,48321,48947,51426,51426,53017,54467,56521,56521,59296,62215,65269,69497,73966,76881]},
+    TN:{n:"Tennessee",v:[39832,41725,43560,43560,42669,42764,43985,44361,44361,46012,47275,49695,52375,54833,56071,58516,64735,69634,71997]},
+    TX:{n:"Texas",v:[42139,44922,47548,49646,48259,49392,50740,51563,51563,53035,55653,57051,59206,61874,64034,64034,72284,78003,79721]},
+    UT:{n:"Utah",v:[49798,52877,55769,57673,55769,55869,57049,59770,60922,62912,64395,67481,70126,74197,79133,79133,87652,96118,96658]},
+    VT:{n:"Vermont",v:[47347,49907,52613,52142,53136,52776,52776,54267,54267,54267,56990,57808,60782,61973,63001,67674,72758,83461,82730]},
+    VA:{n:"Virginia",v:[55768,58950,62666,63636,61290,60674,61290,63907,63907,65015,66451,68766,71535,74222,76398,80963,88214,92404,92090]},
+    WA:{n:"Washington",v:[51649,55591,58078,60478,58506,58506,57244,59478,59478,62848,66174,70979,73775,78687,78687,90325,94498,97420,99389]},
+    WV:{n:"West Virginia",v:[33361,34948,36747,37507,37696,38482,38482,41043,41043,41059,42019,43469,44354,48037,48037,48037,56994,57599,60798]},
+    WI:{n:"Wisconsin",v:[49993,49768,52726,52726,51059,51059,51059,52738,52738,54610,56811,57874,59817,62745,63293,67080,73027,76711,77488]},
+    WY:{n:"Wyoming",v:[46383,48770,51731,56041,56041,53512,57055,56765,58752,58752,57563,60428,60428,61615,65003,65464,69279,74474,75532]}
+  }
+};
+const COLORS=['#1868AD','#C0392B','#1A6B4A','#7B3F9E','#CA6F1E','#1A5276','#7D6608','#145A32'];
+const FIPS={"01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY","72":"PR"};
+let DATA=null,activeInd=null,activeTab='chart',sortMode='desc',filterTxt='',trendSel=['PA','CA','MA','TX'],scatX='median_household_income',scatY='poverty_rate',scatHL=['PA'];
 
-// ─── State ─────────────────────────────────────────────────────────────────
-let DATA        = null;
-let activeInd   = null;
-let sortMode    = "desc";
-let viewMode    = "chart";
-let filterText  = "";
+function fmt(v,unit){if(v==null)return'—';return unit==='dollars'?'$'+Math.round(v).toLocaleString('en-US'):v.toFixed(1)+'%';}
 
-// ─── Boot ───────────────────────────────────────────────────────────────────
-async function boot() {
-  try {
-    const r = await fetch(DATA_URL);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    DATA = await r.json();
-  } catch (e) {
-    document.getElementById("loadingMsg").style.display = "none";
-    document.getElementById("errorMsg").style.display  = "";
-    document.getElementById("errorDetail").textContent = e.message;
+async function boot(){
+  try{
+    const r=await fetch(DATA_URL+'?t='+Date.now());
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    DATA=await r.json();
+  }catch(e){
+    document.getElementById('loader').style.display='none';
+    const em=document.getElementById('errMsg');em.style.display='';
+    em.innerHTML='<p style="font-size:15px;margin-bottom:6px">Could not load data</p><p style="font-size:13px;color:var(--ink3)">'+e.message+'</p>';
     return;
   }
-  document.getElementById("loadingMsg").style.display = "none";
-  document.getElementById("app").style.display        = "";
-
-  // Vintage badge
-  const meta = DATA.meta;
-  document.getElementById("vintageBadge").innerHTML =
-    `<span class="dot"></span> ACS ${meta.vintage} · Updated ${meta.published_at?.slice(0,10) ?? meta.pulled_at?.slice(0,10)}`;
-  document.getElementById("footerMeta").textContent =
-    `ACS ${meta.vintage} 1-year estimates · Refreshed ${meta.published_at?.slice(0,10) ?? "—"}${meta.notes ? " · " + meta.notes : ""}`;
-
+  document.getElementById('loader').style.display='none';
+  document.getElementById('app').style.display='';
+  const m=DATA.meta,d=(m.published_at||m.pulled_at||'').slice(0,10);
+  document.getElementById('yearSel').innerHTML='<option value="'+m.vintage+'">'+m.vintage+' (latest)</option>';
+  document.getElementById('footerRight').innerHTML='<strong>ACS '+m.vintage+' · 1-year</strong>Refreshed '+d+(m.notes?'<br>'+m.notes:'');
   buildSidebar();
-  // Default to first indicator
-  activeInd = Object.keys(DATA.indicators)[0];
-  renderContent();
+  activeInd=Object.keys(DATA.indicators)[0];
+  render();
 }
 
-// ─── Sidebar ────────────────────────────────────────────────────────────────
-function buildSidebar() {
-  const el = document.getElementById("sidebar");
-  el.innerHTML = "";
-  let currentCat = null;
-
-  Object.entries(DATA.indicators).forEach(([key, ind]) => {
-    if (ind.category !== currentCat) {
-      currentCat = ind.category;
-      const h = document.createElement("div");
-      h.className = "cat-header";
-      h.textContent = currentCat;
-      el.appendChild(h);
-    }
-    const btn = document.createElement("button");
-    btn.className = "ind-btn" + (key === activeInd ? " active" : "");
-    btn.textContent = ind.label;
-    btn.onclick = () => { activeInd = key; buildSidebar(); renderContent(); };
-    el.appendChild(btn);
+function buildSidebar(){
+  const el=document.getElementById('sidebar');el.innerHTML='';
+  const intro=document.createElement('div');intro.className='sb-intro';
+  intro.innerHTML='<strong>Indicators</strong>Select any metric to compare all 50 states + D.C.';
+  el.appendChild(intro);
+  let cat=null;
+  Object.entries(DATA.indicators).forEach(function(entry){
+    const k=entry[0],ind=entry[1];
+    if(ind.category!==cat){cat=ind.category;const h=document.createElement('div');h.className='cat-head';h.textContent=cat;el.appendChild(h);}
+    const b=document.createElement('button');b.className='ind-btn'+(k===activeInd?' on':'');
+    b.textContent=ind.label;b.title=ind.description;
+    b.onclick=function(){activeInd=k;buildSidebar();activeTab='chart';filterTxt='';render();};
+    el.appendChild(b);
   });
 }
 
-// ─── Content ────────────────────────────────────────────────────────────────
-function renderContent() {
-  const el = document.getElementById("content");
-  const ind = DATA.indicators[activeInd];
-  if (!ind) { el.innerHTML = "<p>Select an indicator.</p>"; return; }
+function vintageNoteHTML(ind,vintage){
+  var dollarNote=ind.unit==='dollars'?'Values are expressed in inflation-adjusted '+vintage+' dollars, enabling direct cross-state comparison.':'Values represent the percentage of the relevant civilian noninstitutionalized population, as defined by the ACS universe for this measure.';
+  return '<div class="note-box"><span class="note-box-label">Summary statistics \u2014 ACS '+vintage+' 1-year estimates</span>'
+    +'The four figures below characterise the distribution of <em>'+ind.label+'</em> across all 50 states and the District of Columbia, drawn from the <strong>'+vintage+' American Community Survey (ACS) 1-year estimates</strong> \u2014 the Census Bureau\u2019s primary source for current-year state-level socioeconomic data, published each September. '+dollarNote+' All estimates carry margins of error; interpret small interstate differences with appropriate caution. To change the reference year, use the <strong>Data year</strong> selector in the page header.</div>';
+}
 
-  const states = Object.entries(ind.states)
-    .filter(([, s]) => s.value !== null)
-    .filter(([, s]) => !filterText || s.name.toLowerCase().includes(filterText.toLowerCase()));
-
-  const sorted = [...states].sort(([,a],[,b]) => {
-    if (sortMode === "alpha") return a.name.localeCompare(b.name);
-    return sortMode === "desc" ? b.value - a.value : a.value - b.value;
-  });
-
-  const values = sorted.map(([,s]) => s.value);
-  const maxVal = Math.max(...values);
-  const minVal = Math.min(...values);
-  const avgVal = values.reduce((a,b)=>a+b,0) / values.length;
-
-  function fmt(v) {
-    if (v === null || v === undefined) return "—";
-    if (ind.unit === "dollars") return "$" + Math.round(v).toLocaleString("en-US");
-    return v.toFixed(1) + "%";
+function tabExplainerHTML(tab,ind,vintage){
+  if(tab==='chart'){
+    var dirNote=ind.higher_is==='better'?'A longer bar reflects a more favourable outcome on this measure.'
+      :ind.higher_is==='worse'?'A longer bar reflects greater burden or structural disadvantage; states at the top face the greatest challenge on this measure.'
+      :'Bar length conveys the scale of this characteristic; the measure is contextual rather than directionally normative.';
+    return '<div class="tab-explainer"><strong>Ranked bar chart \u2014 interpretation guide</strong>'
+      +'Each horizontal bar represents one state, scaled proportionally from a common zero baseline so that visual differences directly correspond to magnitude differences in the underlying data. <strong>Pennsylvania is highlighted in amber</strong> for immediate reference. '+dirNote+' Use the sort controls to reorder by value (high-to-low or low-to-high) or alphabetically by state name; use the filter field to isolate specific states. The distribution bar in the table view provides an equivalent proportional reference for the tabular data.</div>';
   }
-
-  // Key stats
-  const topState = sorted[0];
-  const botState = sorted[sorted.length-1];
-
-  const higherClass = ind.higher_is === "better" ? "better" : ind.higher_is === "worse" ? "worse" : "";
-
-  let html = `
-    <div class="ind-header">
-      <div class="ind-title">${ind.label}</div>
-      <div class="ind-desc">${ind.description}</div>
-      <div class="ind-meta">
-        <span class="badge">ACS ${DATA.meta.vintage} · ${DATA.meta.survey}</span>
-        <span class="badge">Unit: ${ind.unit}</span>
-        ${ind.higher_is !== "neutral" ? `<span class="badge ${higherClass}">Higher = ${ind.higher_is}</span>` : ""}
-      </div>
-    </div>
-
-    <div class="key-stats">
-      <div class="kstat">
-        <div class="k">Highest</div>
-        <div class="v">${fmt(topState?.[1]?.value)}</div>
-        <div class="s">${topState?.[1]?.name ?? "—"}</div>
-      </div>
-      <div class="kstat">
-        <div class="k">Lowest</div>
-        <div class="v">${fmt(botState?.[1]?.value)}</div>
-        <div class="s">${botState?.[1]?.name ?? "—"}</div>
-      </div>
-      <div class="kstat">
-        <div class="k">Median (51)</div>
-        <div class="v">${fmt(values[Math.floor(values.length/2)])}</div>
-        <div class="s">Middle state</div>
-      </div>
-      <div class="kstat">
-        <div class="k">Average</div>
-        <div class="v">${fmt(avgVal)}</div>
-        <div class="s">Unweighted</div>
-      </div>
-      ${ind.unit === "dollars" && activeInd === "median_household_income"
-        ? `<div class="kstat"><div class="k">National ACS</div><div class="v">${fmt(DATA.meta.national_median_income)}</div><div class="s">Benchmark</div></div>`
-        : ""}
-    </div>`;
-
-  if (viewMode === "chart") {
-    // Horizontal bar chart via SVG
-    const BAR_H = 22, GAP = 4, LABEL_W = 160, VAL_W = 80;
-    const chartH = sorted.length * (BAR_H + GAP);
-    const trackW = 460;
-
-    let bars = "";
-    sorted.forEach(([fips, s], i) => {
-      const y = i * (BAR_H + GAP);
-      const pct = maxVal > 0 ? (s.value / maxVal) : 0;
-      const bw = Math.max(2, pct * trackW);
-      const isPa = fips === "42";
-      const color = isPa ? "#B07C1A" : (ind.higher_is === "worse" ? "#C0504D" : "#2D8A72");
-      bars += `
-        <g transform="translate(0,${y})">
-          <text x="${LABEL_W-8}" y="${BAR_H/2+5}" text-anchor="end" font-size="12"
-            font-family="system-ui,sans-serif" fill="${isPa?"#B07C1A":"#3B4C44"}"
-            font-weight="${isPa?700:400}">${s.name}</text>
-          <rect x="${LABEL_W}" y="4" width="${bw}" height="${BAR_H-8}" rx="3" fill="${color}" opacity="${isPa?1:.75}"/>
-          <text x="${LABEL_W+bw+6}" y="${BAR_H/2+5}" font-size="12"
-            font-family="ui-monospace,monospace" fill="#1A2820">${fmt(s.value)}</text>
-        </g>`;
-    });
-
-    html += `<div class="chart-wrap">
-      <div class="chart-title">All states ranked · ${ind.label} · ACS ${DATA.meta.vintage}
-        ${fips==="42"?"· <span style='color:#B07C1A'>Pennsylvania highlighted</span>":""}</div>
-      <svg class="bar" viewBox="0 0 ${LABEL_W+trackW+VAL_W} ${chartH}" style="height:${Math.max(300,chartH)}px">
-        ${bars}
-      </svg>
-    </div>`;
-  } else {
-    // Table view
-    let rows = "";
-    sorted.forEach(([fips, s], i) => {
-      const rank = i + 1;
-      const pct = maxVal > 0 ? (s.value / maxVal) : 0;
-      const bw = Math.max(2, pct * 80);
-      const isPa = fips === "42";
-      rows += `<tr${isPa?' style="background:#FDF6E8"':""}>
-        <td><span class="rank-badge">#${rank}</span></td>
-        <td style="${isPa?"font-weight:700;color:#B07C1A":""}">${s.name}</td>
-        <td class="mono r">${fmt(s.value)}</td>
-        <td>
-          <div class="bar-cell">
-            <div class="bar-inline" style="width:${bw}px;background:${ind.higher_is==='worse'?'#C0504D':'#2D8A72'}"></div>
-          </div>
-        </td>
-      </tr>`;
-    });
-    html += `<div class="tbl-wrap"><table>
-      <thead><tr>
-        <th>Rank</th><th>State</th><th class="r">${ind.label}</th><th>Distribution</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
+  if(tab==='trend'){
+    return '<div class="tab-explainer"><strong>Trend lines \u2014 interpretation guide</strong>'
+      +'Each line traces median household income in nominal ACS dollars from 2005 to '+vintage+'. The dashed black reference line marks the U.S. national ACS median \u2014 a consistent benchmark against which each state\u2019s trajectory can be evaluated over time. Values are reported in each survey year\u2019s own dollars and are <em>not</em> adjusted for cross-year inflation; they reflect purchasing-power levels as published by the Census Bureau in each annual release. The shaded grey band marks 2020, for which the Census Bureau did not release ACS 1-year estimates due to COVID-19-related disruption to data collection. Red and blue vertical reference lines mark the 2008 financial crisis and the 2019 pre-pandemic baseline respectively. Select states using the pill controls above; hover over the chart area to read precise values for any year.</div>';
   }
-
-  el.innerHTML = html;
+  if(tab==='scatter'){
+    return '<div class="tab-explainer"><strong>Scatter plot \u2014 interpretation guide</strong>'
+      +'Each point represents one state, positioned simultaneously by two indicator values \u2014 the horizontal (X) axis and the vertical (Y) axis. This bivariate view reveals whether states that perform well on one measure tend to perform similarly on a second measure, a pattern indicative of structural correlation across the state distribution. The dashed trend line summarises the linear association; the reported Pearson correlation coefficient (r) quantifies its direction and strength, where values near \u00b11 indicate a strong relationship and values near 0 indicate independence. Points that deviate markedly from the trend line are statistical outliers warranting closer analytical attention. <strong>Pennsylvania is always shown in amber.</strong> Use the axis dropdowns to select any pair of the 15 available indicators; use the highlight pill controls or click directly on a state dot to flag specific states in red for ease of tracking.</div>';
+  }
+  if(tab==='table'){
+    return '<div class="tab-explainer"><strong>Data table \u2014 interpretation guide</strong>'
+      +'The table ranks all 50 states and the District of Columbia by their ACS '+vintage+' 1-year estimate for <em>'+ind.label+'</em>. Rank 1 corresponds to the highest observed value across all geographies. The distribution bar in the rightmost column provides a proportional visual reference scaled to the maximum state value; it is not indexed to any external benchmark such as the national median. <strong>Pennsylvania is highlighted in amber</strong> for immediate reference. Use the sort controls to reorder by value or alphabetically; use the filter field to locate a specific state by name or two-letter postal abbreviation.</div>';
+  }
+  return '';
 }
 
-// ─── Controls ───────────────────────────────────────────────────────────────
-function setSort(m) {
-  sortMode = m;
-  ["High","Low","Alpha"].forEach(x => {
-    document.getElementById("btn"+x).setAttribute("aria-pressed", m===x.toLowerCase()||
-      (m==="desc"&&x==="High")||(m==="asc"&&x==="Low")||(m==="alpha"&&x==="Alpha"));
+function render(){
+  const el=document.getElementById('content');
+  const ind=DATA.indicators[activeInd];if(!ind)return;
+  const all=Object.entries(ind.states).map(function(e){return{fips:e[0],abbr:FIPS[e[0]]||e[0],name:e[1].name,value:e[1].value};}).filter(function(s){return s.value!==null&&s.name!=='Puerto Rico';});
+  const filtered=all.filter(function(s){return !filterTxt||s.name.toLowerCase().indexOf(filterTxt.toLowerCase())>=0||s.abbr.toLowerCase().indexOf(filterTxt.toLowerCase())>=0;});
+  const sorted=[...filtered].sort(function(a,b){return sortMode==='alpha'?a.name.localeCompare(b.name):sortMode==='asc'?a.value-b.value:b.value-a.value;});
+  const vals=all.map(function(s){return s.value;});
+  const maxV=Math.max.apply(null,vals),minV=Math.min.apply(null,vals);
+  const midV=[...vals].sort(function(a,b){return a-b;})[Math.floor(vals.length/2)];
+  const pa=all.find(function(s){return s.fips==='42';});
+  const top=sorted[0],bot=sorted[sorted.length-1];
+  const paRank=sorted.findIndex(function(s){return s.fips==='42';})+1;
+  const hiClass=ind.higher_is==='better'?'better':ind.higher_is==='worse'?'worse':'';
+  const ctxMsg=ind.higher_is==='better'?'Higher values indicate more favourable outcomes. States at the top of the distribution are performing relatively well on this measure.'
+    :ind.higher_is==='worse'?'Higher values indicate greater burden or structural disadvantage. States at the top of the distribution face the greatest challenge on this measure.'
+    :'This indicator is contextual \u2014 higher or lower values reflect population composition or structural characteristics rather than a directional policy outcome.';
+  const vintage=DATA.meta.vintage;
+  const paQ=paRank<=13?'top quartile':paRank<=26?'second quartile':paRank<=39?'third quartile':'bottom quartile';
+
+  var html='<div class="ind-head">'
+    +'<h2>'+ind.label+'</h2>'
+    +'<div class="ind-head-desc">'+ind.description+'</div>'
+    +'<div class="ind-tags">'
+    +'<span class="itag">ACS '+vintage+' \u00b7 1-year</span>'
+    +'<span class="itag">'+(ind.unit==='dollars'?'Inflation-adjusted dollars':'% of population')+'</span>'
+    +(ind.higher_is!=='neutral'?'<span class="itag '+hiClass+'">Higher = '+ind.higher_is+'</span>':'')
+    +'<span class="itag">'+ind.category+'</span>'
+    +'</div></div>';
+
+  html+=vintageNoteHTML(ind,vintage);
+
+  html+='<div class="kpis">'
+    +'<div class="kpi"><div class="kpi-lbl">Highest state</div><div class="kpi-val">'+fmt(top&&top.value,ind.unit)+'</div><div class="kpi-sub">'+(top?top.name:'')+'</div>'+(ind.higher_is==='worse'?'<div class="kpi-note">\u2191 Greatest burden</div>':ind.higher_is==='better'?'<div class="kpi-note" style="color:var(--green)">\u2191 Best performing</div>':'')+'</div>'
+    +'<div class="kpi"><div class="kpi-lbl">Lowest state</div><div class="kpi-val">'+fmt(bot&&bot.value,ind.unit)+'</div><div class="kpi-sub">'+(bot?bot.name:'')+'</div>'+(ind.higher_is==='better'?'<div class="kpi-note" style="color:var(--red)">\u2193 Lowest performing</div>':ind.higher_is==='worse'?'<div class="kpi-note" style="color:var(--green)">\u2193 Least burden</div>':'')+'</div>'
+    +'<div class="kpi"><div class="kpi-lbl">Median state</div><div class="kpi-val">'+fmt(midV,ind.unit)+'</div><div class="kpi-sub">Half above, half below</div></div>'
+    +(pa?'<div class="kpi"><div class="kpi-lbl">Pennsylvania</div><div class="kpi-val pa">'+fmt(pa.value,ind.unit)+'</div><div class="kpi-sub">Ranked #'+paRank+' of '+sorted.length+'</div><div class="kpi-note">'+paQ+'</div></div>':'')
+    +'</div>';
+
+  html+='<div class="ctx">\u2139\ufe0f <strong>How to read:</strong> '+ctxMsg+(ind.unit==='dollars'?' Values in '+vintage+' inflation-adjusted dollars.':'')+'</div>';
+
+  html+='<div class="tab-row">'
+    +'<button class="tab-btn'+(activeTab==='chart'?' on':'')+'" onclick="setTab(\'chart\')">&#9644; Bar Chart</button>'
+    +'<button class="tab-btn'+(activeTab==='trend'?' on':'')+'" onclick="setTab(\'trend\')">\u2197 Trend Lines</button>'
+    +'<button class="tab-btn'+(activeTab==='scatter'?' on':'')+'" onclick="setTab(\'scatter\')">\u25c9 Scatter Plot</button>'
+    +'<button class="tab-btn'+(activeTab==='table'?' on':'')+'" onclick="setTab(\'table\')">\u2261 Table</button>'
+    +'</div>';
+
+  html+=tabExplainerHTML(activeTab,ind,vintage);
+
+  if(activeTab==='chart') html+=renderBar(sorted,ind,maxV,minV);
+  else if(activeTab==='trend') html+=renderTrend(ind);
+  else if(activeTab==='scatter') html+=renderScatter(ind);
+  else html+=renderTable(sorted,ind,maxV);
+
+  el.innerHTML=html;
+  if(activeTab==='trend') bindTrend();
+  if(activeTab==='scatter') bindScatter();
+}
+
+function renderBar(sorted,ind,maxV,minV){
+  var LW=172,TRW=380,VW=90,BH=22,GAP=4;
+  var H=sorted.length*(BH+GAP);
+  var barC=ind.higher_is==='worse'?'#8B2218':'#1868AD';
+  var bars='';
+  sorted.forEach(function(s,i){
+    var y=i*(BH+GAP),bw=maxV>0?Math.max(3,(s.value/maxV)*TRW):3,isPa=s.fips==='42';
+    var bc=isPa?'#7A5200':barC,tc=isPa?'#7A5200':'#44444A';
+    bars+='<g transform="translate(0,'+y+')">'
+      +'<text x="'+(LW-7)+'" y="'+(BH/2+5)+'" text-anchor="end" font-size="12.5" font-family="IBM Plex Sans,sans-serif" fill="'+tc+'" font-weight="'+(isPa?'600':'400')+'">'+s.name+'</text>'
+      +'<rect x="'+LW+'" y="3" width="'+bw+'" height="'+(BH-6)+'" rx="2" fill="'+bc+'" opacity="'+(isPa?1:.8)+'"/>'
+      +'<text x="'+(LW+bw+6)+'" y="'+(BH/2+5)+'" font-size="12" font-family="IBM Plex Mono,monospace" fill="'+(isPa?'#7A5200':'#18181A')+'" font-weight="'+(isPa?'600':'400')+'">'+fmt(s.value,ind.unit)+'</text>'
+      +'</g>';
   });
-  renderContent();
+  var ins=genBarInsights(sorted,ind,maxV);
+  var W=LW+TRW+VW;
+  return '<div class="cbar">'
+    +'<span class="cbar-lbl">Sort</span>'
+    +'<div class="seg">'
+    +'<button class="'+(sortMode==='desc'?'on':'')+'" onclick="sortMode=\'desc\';render()">High\u2192Low</button>'
+    +'<button class="'+(sortMode==='asc'?'on':'')+'" onclick="sortMode=\'asc\';render()">Low\u2192High</button>'
+    +'<button class="'+(sortMode==='alpha'?'on':'')+'" onclick="sortMode=\'alpha\';render()">A\u2013Z</button>'
+    +'</div>'
+    +'<input class="flt" type="text" placeholder="Filter states\u2026" value="'+filterTxt+'" oninput="filterTxt=this.value;render()">'
+    +'</div>'
+    +'<div class="legend">'
+    +'<div class="li"><div class="ls" style="background:'+barC+'"></div>All states</div>'
+    +'<div class="li"><div class="ls" style="background:#7A5200"></div>Pennsylvania</div>'
+    +(ind.higher_is!=='neutral'?'<div class="li-note">'+(ind.higher_is==='worse'?'\u26a0 Longer bar = greater burden':'\u2713 Longer bar = better outcome')+'</div>':'')
+    +'</div>'
+    +(ins?'<div class="insights"><div class="ins-head">Key observations</div><ul class="ins-list">'+ins+'</ul></div>':'')
+    +'<div class="card">'
+    +'<div class="card-head">'
+    +'<div><div class="card-title">'+ind.label+' \u2014 all states ranked'+(filterTxt?' (filtered)':'')+'</div>'
+    +'<div class="card-sub">ACS '+DATA.meta.vintage+' \u00b7 '+(ind.unit==='dollars'?'Inflation-adjusted dollars':'% of relevant population')+' \u00b7 Pennsylvania in amber</div></div>'
+    +'<button class="dl-btn" onclick="dlChart(\'barSvg\',\''+ind.label.replace(/\W+/g,'_')+'_'+DATA.meta.vintage+'\')">\u2b07 PNG</button>'
+    +'</div>'
+    +'<div class="card-scroll">'
+    +'<svg id="barSvg" width="'+W+'" height="'+Math.max(300,H)+'" viewBox="0 0 '+W+' '+Math.max(300,H)+'" style="display:block">'+bars+'</svg>'
+    +'</div></div>';
 }
-function setView(v) {
-  viewMode = v;
-  document.getElementById("btnChart").setAttribute("aria-pressed", v==="chart");
-  document.getElementById("btnTable").setAttribute("aria-pressed", v==="table");
-  renderContent();
-}
-function setFilter(v) { filterText = v; renderContent(); }
 
+function genBarInsights(sorted,ind,maxV){
+  if(!sorted.length)return'';
+  var top=sorted[0],bot=sorted[sorted.length-1],pa=sorted.find(function(s){return s.fips==='42';});
+  var paRank=sorted.findIndex(function(s){return s.fips==='42';})+1,n=sorted.length;
+  var gap=top.value-bot.value;
+  var items=[];
+  items.push(ind.unit==='dollars'
+    ?'<strong>'+top.name+'</strong> leads at '+fmt(top.value,ind.unit)+' \u2014 <strong>'+fmt(gap,ind.unit)+' more</strong> than '+bot.name+' at the bottom of the distribution.'
+    :'<strong>'+top.name+'</strong> records the highest rate at '+fmt(top.value,ind.unit)+'; <strong>'+bot.name+'</strong> the lowest at '+fmt(bot.value,ind.unit)+' \u2014 a '+gap.toFixed(1)+' percentage-point spread across states.');
+  if(pa) items.push('Pennsylvania ranks <strong>#'+paRank+' of '+n+'</strong>, placing it in the '+(paRank<=13?'top':paRank<=26?'second':paRank<=39?'third':'bottom')+' quartile of the national distribution.');
+  var NE=['ME','VT','NH','MA','RI','CT','NY','NJ','PA','DE','MD','DC'];
+  var topQ=sorted.slice(0,Math.ceil(n/4));
+  var neCount=topQ.filter(function(s){return NE.indexOf(s.abbr)>=0;}).length;
+  if(neCount>=3) items.push('Northeastern states account for '+neCount+' of the '+topQ.length+' top-quartile geographies on this indicator.');
+  return items.slice(0,3).map(function(i){return'<li>'+i+'</li>';}).join('');
+}
+
+function renderTrend(ind){
+  if(activeInd!=='median_household_income')
+    return '<div class="empty"><p>Trend data available for Median Household Income</p><small>Historical series for other indicators will be added in the next annual refresh.<br>Select <strong>Median Household Income</strong> in the sidebar to access 2005\u20132024 trend lines.</small></div>';
+  var yrs=HIST.years,W=820,H=440,PL=68,PR=72,PT=32,PB=44;
+  var cW=W-PL-PR,cH=H-PT-PB;
+  var series=trendSel.map(function(a,ci){return{a:a,ci:ci,color:COLORS[ci],name:HIST.st[a]?HIST.st[a].n:a,vals:HIST.st[a]?HIST.st[a].v:[]};}).filter(function(s){return s.vals.length;});
+  var nat=HIST.nat;
+  var allV=nat.concat(series.reduce(function(acc,s){return acc.concat(s.vals);},[]).filter(Boolean));
+  var lo=Math.min.apply(null,allV)*.955,hi=Math.max.apply(null,allV)*1.025;
+  var xS=function(i){return PL+(i/(yrs.length-1))*cW;};
+  var yS=function(v){return PT+(1-(v-lo)/(hi-lo))*cH;};
+  var fK=function(v){return'$'+Math.round(v/1000)+'k';};
+  var svg='';
+  for(var i=0;i<=5;i++){var v=lo+(hi-lo)*i/5,y=yS(v);svg+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+y+'" y2="'+y+'" stroke="#E2E2DE" stroke-width="1"/><text x="'+(PL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" font-family="IBM Plex Mono,monospace" fill="#74747A">'+fK(v)+'</text>';}
+  yrs.forEach(function(yr,i){if(i%3===0||yr===2024)svg+='<text x="'+xS(i).toFixed(1)+'" y="'+(H-PB+16)+'" text-anchor="middle" font-size="11" font-family="IBM Plex Mono,monospace" fill="#74747A">'+yr+'</text>';});
+  var i08=yrs.indexOf(2008),i19=yrs.indexOf(2019),i21=yrs.indexOf(2021);
+  svg+='<line x1="'+xS(i08).toFixed(1)+'" x2="'+xS(i08).toFixed(1)+'" y1="'+PT+'" y2="'+(H-PB)+'" stroke="#E0A8A2" stroke-width="1" stroke-dasharray="3 3"/>';
+  svg+='<text x="'+xS(i08).toFixed(1)+'" y="'+(PT-8)+'" text-anchor="middle" font-size="9.5" font-family="IBM Plex Mono,monospace" fill="#8B2218">Financial crisis</text>';
+  svg+='<line x1="'+xS(i19).toFixed(1)+'" x2="'+xS(i19).toFixed(1)+'" y1="'+PT+'" y2="'+(H-PB)+'" stroke="#B8D4E8" stroke-width="1" stroke-dasharray="3 3"/>';
+  svg+='<text x="'+xS(i19).toFixed(1)+'" y="'+(PT-8)+'" text-anchor="middle" font-size="9.5" font-family="IBM Plex Mono,monospace" fill="#124F84">Pre-pandemic</text>';
+  svg+='<rect x="'+xS(i19).toFixed(1)+'" y="'+PT+'" width="'+(xS(i21)-xS(i19)).toFixed(1)+'" height="'+cH+'" fill="rgba(226,226,222,.55)"/>';
+  svg+='<text x="'+((xS(i19)+xS(i21))/2).toFixed(1)+'" y="'+(PT+cH-10)+'" text-anchor="middle" font-size="9" font-family="IBM Plex Mono,monospace" fill="#74747A">No 2020</text>';
+  var np='';nat.forEach(function(v,i){if(v)np+=(np?'L':'M')+xS(i).toFixed(1)+','+yS(v).toFixed(1);});
+  svg+='<path d="'+np+'" fill="none" stroke="#444" stroke-width="1.5" stroke-dasharray="6 3"/>';
+  svg+='<text x="'+(W-PR+5)+'" y="'+(yS(nat[nat.length-1])+4)+'" font-size="10.5" font-family="IBM Plex Mono,monospace" fill="#444">US</text>';
+  series.forEach(function(s){
+    var p='';yrs.forEach(function(yr,i){var v=s.vals[i];if(v)p+=(p?'L':'M')+xS(i).toFixed(1)+','+yS(v).toFixed(1);});
+    svg+='<path d="'+p+'" fill="none" stroke="'+s.color+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    yrs.forEach(function(yr,i){var v=s.vals[i];if(v)svg+='<circle cx="'+xS(i).toFixed(1)+'" cy="'+yS(v).toFixed(1)+'" r="3" fill="'+s.color+'"/>';});
+    var last=s.vals[s.vals.length-1];
+    if(last)svg+='<text x="'+(W-PR+5)+'" y="'+(yS(last)+4)+'" font-size="10.5" font-family="IBM Plex Mono,monospace" fill="'+s.color+'" font-weight="500">'+s.a+'</text>';
+  });
+  yrs.forEach(function(yr,i){svg+='<rect class="hcol" data-i="'+i+'" data-yr="'+yr+'" x="'+(xS(i)-16).toFixed(1)+'" y="'+PT+'" width="32" height="'+cH+'" fill="transparent" style="cursor:crosshair"/>';});
+  var legendHtml=series.map(function(s){return'<div class="li"><div class="ls" style="background:'+s.color+'"></div>'+s.name+'</div>';}).join('');
+  var allAbbrs=Object.keys(HIST.st).sort(function(a,b){return HIST.st[a].n.localeCompare(HIST.st[b].n);});
+  var pills=allAbbrs.map(function(a){var idx=trendSel.indexOf(a);var st=idx>=0?'background:'+COLORS[idx]+';color:#fff;border-color:transparent':'';return'<button class="pill'+(idx>=0?' on':'')+'" style="'+st+'" onclick="toggleTrend(\''+a+'\')" title="'+HIST.st[a].n+'">'+a+'</button>';}).join('');
+  var tins=genTrendInsights(series,nat,yrs);
+  return '<div class="pills-wrap"><div class="pills-lbl">Select states to compare \u2014 click to add or remove (up to 8)</div><div class="pills">'+pills+'</div></div>'
+    +'<div class="legend">'+legendHtml+'<div class="li"><div class="ls dash"></div>U.S. national median</div><div class="li-note">Dashed verticals = key events \u00b7 Grey band = no ACS 2020</div></div>'
+    +(tins?'<div class="insights"><div class="ins-head">Trend observations \u2014 selected states</div><ul class="ins-list">'+tins+'</ul></div>':'')
+    +'<div class="card">'
+    +'<div class="card-head"><div><div class="card-title">Median Household Income \u2014 2005 to 2024</div>'
+    +'<div class="card-sub">ACS 1-year estimates \u00b7 Nominal dollars \u00b7 Hover for values \u00b7 Select states above to compare</div></div>'
+    +'<button class="dl-btn" onclick="dlChart(\'trendSvg\',\'Income_Trend_2005_2024\')">\u2b07 PNG</button></div>'
+    +'<div class="card-scroll"><svg id="trendSvg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="max-width:100%;display:block">'+svg+'</svg></div></div>';
+}
+
+function genTrendInsights(series,nat,yrs){
+  if(!series.length)return'';
+  var items=[],iL=yrs.length-1,i19=yrs.indexOf(2019),i08=yrs.indexOf(2008),i10=yrs.indexOf(2010);
+  var growths=series.map(function(s){var g=s.vals[i19]&&s.vals[iL]?((s.vals[iL]-s.vals[i19])/s.vals[i19]*100):null;return{name:s.name,g:g};}).filter(function(x){return x.g!==null;}).sort(function(a,b){return b.g-a.g;});
+  if(growths.length>=2)items.push('Among selected states, <strong>'+growths[0].name+'</strong> recorded the strongest nominal income growth since the 2019 pre-pandemic baseline (+'+growths[0].g.toFixed(1)+'%); <strong>'+growths[growths.length-1].name+'</strong> recorded the weakest (+'+growths[growths.length-1].g.toFixed(1)+'%).');
+  series.forEach(function(s){var l=s.vals[iL],n=nat[iL];if(l&&n){var d=((l-n)/n*100);if(Math.abs(d)>12)items.push('In '+yrs[iL]+', <strong>'+s.name+'</strong> sits '+Math.abs(d).toFixed(0)+'% '+(d>0?'above':'below')+' the national ACS median ($'+Math.round(n).toLocaleString()+'), indicating a structurally '+(d>0?'advantaged':'disadvantaged')+' income position relative to the national distribution.');}});
+  series.forEach(function(s){var drop=s.vals[i08]&&s.vals[i10]?((s.vals[i10]-s.vals[i08])/s.vals[i08]*100):null;if(drop&&drop<-6)items.push('<strong>'+s.name+'</strong> experienced a '+Math.abs(drop).toFixed(1)+'% decline in median household income between 2008 and 2010, reflecting above-average sensitivity to the financial crisis among the selected states.');});
+  return items.slice(0,3).map(function(i){return'<li>'+i+'</li>';}).join('');
+}
+
+function bindTrend(){
+  var tip=document.getElementById('tip');
+  document.querySelectorAll('.hcol').forEach(function(col){
+    col.addEventListener('mouseenter',function(e){
+      var i=+e.target.dataset.i,yr=+e.target.dataset.yr;
+      var h='<div class="tip-yr">'+yr+(yr===2019?' \u00b7 Pre-pandemic':yr===2008?' \u00b7 Financial crisis':'')+'</div>';
+      trendSel.forEach(function(a,ci){var v=HIST.st[a]&&HIST.st[a].v[i];if(v)h+='<div class="tip-row"><span class="tip-dot" style="background:'+COLORS[ci]+'"></span>'+HIST.st[a].n+'<span class="tip-val">$'+Math.round(v).toLocaleString()+'</span></div>';});
+      var nv=HIST.nat[i];if(nv)h+='<div class="tip-row"><span class="tip-dot" style="background:#444;border-radius:2px"></span>U.S. national<span class="tip-val">$'+Math.round(nv).toLocaleString()+'</span></div>';
+      tip.innerHTML=h;tip.classList.add('show');
+    });
+    col.addEventListener('mousemove',function(e){tip.style.left=(e.clientX+16)+'px';tip.style.top=(e.clientY-44)+'px';});
+    col.addEventListener('mouseleave',function(){tip.classList.remove('show');});
+  });
+}
+function toggleTrend(a){var i=trendSel.indexOf(a);if(i>=0)trendSel.splice(i,1);else if(trendSel.length<8)trendSel.push(a);render();}
+
+function renderScatter(ind){
+  var inds=DATA.indicators,keys=Object.keys(inds);
+  var xInd=inds[scatX],yInd=inds[scatY];
+  if(!xInd||!yInd)return'<div class="empty"><p>Select two indicators.</p></div>';
+  var pts=[];
+  Object.entries(xInd.states).forEach(function(e){
+    var fips=e[0],sx=e[1],sy=yInd.states[fips];
+    if(sx&&sx.value!=null&&sy&&sy.value!=null&&FIPS[fips]!=='PR')
+      pts.push({fips:fips,abbr:FIPS[fips]||fips,name:sx.name.replace(', United States',''),xv:sx.value,yv:sy.value});
+  });
+  var W=820,H=480,PL=72,PR=80,PT=30,PB=54;
+  var cW=W-PL-PR,cH=H-PT-PB;
+  var xs=pts.map(function(p){return p.xv;}),ys=pts.map(function(p){return p.yv;});
+  var xLo=Math.min.apply(null,xs),xHi=Math.max.apply(null,xs),yLo=Math.min.apply(null,ys),yHi=Math.max.apply(null,ys);
+  var xPad=(xHi-xLo)*.06,yPad=(yHi-yLo)*.08;
+  var xS=function(v){return PL+((v-xLo+xPad)/((xHi-xLo)+2*xPad))*cW;};
+  var yS=function(v){return PT+((1-(v-yLo+yPad)/((yHi-yLo)+2*yPad)))*cH;};
+  var mx=xs.reduce(function(a,b){return a+b;})/xs.length,my=ys.reduce(function(a,b){return a+b;})/ys.length;
+  var cov=pts.reduce(function(a,p){return a+(p.xv-mx)*(p.yv-my);},0)/pts.length;
+  var sdx=Math.sqrt(pts.reduce(function(a,p){return a+(p.xv-mx)*(p.xv-mx);},0)/pts.length);
+  var sdy=Math.sqrt(pts.reduce(function(a,p){return a+(p.yv-my)*(p.yv-my);},0)/pts.length);
+  var corr=sdx&&sdy?cov/(sdx*sdy):0;
+  var slope=sdx?cov/(sdx*sdx):0,intercept=my-slope*mx;
+  var svg='';
+  for(var i=0;i<=5;i++){
+    var xv=xLo+(xHi-xLo)*i/5;svg+='<line x1="'+xS(xv).toFixed(1)+'" x2="'+xS(xv).toFixed(1)+'" y1="'+PT+'" y2="'+(H-PB)+'" stroke="#E2E2DE" stroke-width="1"/>';
+    var xt=xInd.unit==='dollars'?'$'+Math.round(xv/1000)+'k':xv.toFixed(0)+'%';
+    svg+='<text x="'+xS(xv).toFixed(1)+'" y="'+(H-PB+15)+'" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono,monospace" fill="#74747A">'+xt+'</text>';
+    var yv=yLo+(yHi-yLo)*i/5;svg+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+yS(yv).toFixed(1)+'" y2="'+yS(yv).toFixed(1)+'" stroke="#E2E2DE" stroke-width="1"/>';
+    var yt=yInd.unit==='dollars'?'$'+Math.round(yv/1000)+'k':yv.toFixed(1)+'%';
+    svg+='<text x="'+(PL-6)+'" y="'+(yS(yv)+4).toFixed(1)+'" text-anchor="end" font-size="10.5" font-family="IBM Plex Mono,monospace" fill="#74747A">'+yt+'</text>';
+  }
+  svg+='<text x="'+(PL+cW/2)+'" y="'+(H-PB+34)+'" text-anchor="middle" font-size="12" font-family="IBM Plex Sans,sans-serif" fill="#44444A" font-weight="600">\u2190 '+xInd.label+' \u2192</text>';
+  svg+='<text transform="rotate(-90)" x="'+(-PT-cH/2)+'" y="16" text-anchor="middle" font-size="12" font-family="IBM Plex Sans,sans-serif" fill="#44444A" font-weight="600">\u2190 '+yInd.label+' \u2192</text>';
+  svg+='<line x1="'+xS(xLo).toFixed(1)+'" y1="'+yS(slope*xLo+intercept).toFixed(1)+'" x2="'+xS(xHi).toFixed(1)+'" y2="'+yS(slope*xHi+intercept).toFixed(1)+'" stroke="#999" stroke-width="1.5" stroke-dasharray="6 3" opacity=".6"/>';
+  pts.forEach(function(p){
+    var isPa=p.fips==='42',isHL=scatHL.indexOf(p.abbr)>=0;
+    var color=isPa?'#7A5200':isHL?'#C0392B':'#1868AD';
+    var r=isPa||isHL?7:4.5,op=isPa||isHL?1:.5;
+    svg+='<circle class="sdot" cx="'+xS(p.xv).toFixed(1)+'" cy="'+yS(p.yv).toFixed(1)+'" r="'+r+'" fill="'+color+'" opacity="'+op+'" stroke="'+color+'" stroke-width="'+(isPa||isHL?1.5:.3)+'" data-name="'+p.name+'" data-abbr="'+p.abbr+'" data-fips="'+p.fips+'" data-xv="'+p.xv+'" data-yv="'+p.yv+'"/>';
+    if(isPa||isHL||['CA','TX','NY','MS','DC','MA','WV','MN','FL'].indexOf(p.abbr)>=0)
+      svg+='<text x="'+(xS(p.xv)+9).toFixed(1)+'" y="'+(yS(p.yv)+4).toFixed(1)+'" font-size="'+(isPa||isHL?11:10)+'" font-family="IBM Plex Mono,monospace" fill="'+(isPa?'#7A5200':isHL?'#C0392B':'#44444A')+'" font-weight="'+(isPa||isHL?'600':'400')+'">'+p.abbr+'</text>';
+  });
+  var corrDesc=Math.abs(corr)>0.7?'strong':Math.abs(corr)>0.4?'moderate':'weak';
+  var corrDir=corr>0?'positive':'negative';
+  var opts=function(k){return keys.map(function(k2){return'<option value="'+k2+'"'+(k2===k?' selected':'')+'>'+inds[k2].label+'</option>';}).join('');};
+  var allAbbrs=Object.keys(FIPS).map(function(f){return FIPS[f];}).filter(function(a,i,arr){return a!=='PR'&&arr.indexOf(a)===i;}).sort();
+  var hlPills=allAbbrs.map(function(a){
+    var isOn=scatHL.indexOf(a)>=0||a==='PA';
+    var color=a==='PA'?'#7A5200':isOn?'#C0392B':null;
+    var style=color?'background:'+color+';color:#fff;border-color:transparent':'';
+    return'<button class="pill'+(isOn?' on':'')+'" style="'+style+'" onclick="toggleScatHL(\''+a+'\')" title="'+a+'">'+a+'</button>';
+  }).join('');
+  return '<div class="scat-ctrl">'
+    +'<div><div class="ax-lbl">X axis (horizontal)</div><select class="ax-sel" onchange="scatX=this.value;render()">'+opts(scatX)+'</select></div>'
+    +'<div class="scat-vs">vs.</div>'
+    +'<div><div class="ax-lbl">Y axis (vertical)</div><select class="ax-sel" onchange="scatY=this.value;render()">'+opts(scatY)+'</select></div>'
+    +'</div>'
+    +'<div class="pills-wrap"><div class="pills-lbl">Highlight additional states \u2014 click to toggle (Pennsylvania always highlighted in amber)</div><div class="pills">'+hlPills+'</div></div>'
+    +'<div class="insights"><div class="ins-head">Correlation analysis</div><ul class="ins-list"><li>There is a <strong>'+corrDesc+' '+corrDir+' correlation</strong> (Pearson r\u00a0=\u00a0'+corr.toFixed(2)+') between '+xInd.label+' and '+yInd.label+' across states. '+(Math.abs(corr)>0.5?'This suggests a meaningful structural relationship between these two dimensions of socioeconomic disadvantage at the state level.':'The weak association indicates that performance on these two indicators varies largely independently across states.')+'</li></ul></div>'
+    +'<div class="card">'
+    +'<div class="card-head"><div><div class="card-title">'+xInd.label+' vs. '+yInd.label+' \u2014 all states</div>'
+    +'<div class="card-sub">ACS '+DATA.meta.vintage+' \u00b7 Hover dots for details \u00b7 Pennsylvania = amber \u00b7 Highlighted = red \u00b7 Dashed = linear trend</div></div>'
+    +'<button class="dl-btn" onclick="dlChart(\'scatSvg\',\'Scatter_'+DATA.meta.vintage+'\')">\u2b07 PNG</button></div>'
+    +'<div class="card-scroll"><svg id="scatSvg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="max-width:100%;display:block">'+svg+'</svg></div></div>';
+}
+
+function bindScatter(){
+  var tip=document.getElementById('tip');
+  document.querySelectorAll('.sdot').forEach(function(dot){
+    dot.addEventListener('mouseenter',function(e){
+      var d=e.target.dataset,xInd=DATA.indicators[scatX],yInd=DATA.indicators[scatY];
+      tip.innerHTML='<div class="tip-name">'+d.name+' ('+d.abbr+')</div><div class="tip-r2"><span>'+xInd.label+'</span><span>'+fmt(+d.xv,xInd.unit)+'</span></div><div class="tip-r2"><span>'+yInd.label+'</span><span>'+fmt(+d.yv,yInd.unit)+'</span></div>';
+      tip.classList.add('show');
+    });
+    dot.addEventListener('mousemove',function(e){tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-52)+'px';});
+    dot.addEventListener('mouseleave',function(){tip.classList.remove('show');});
+    dot.addEventListener('click',function(e){var abbr=e.target.dataset.abbr;if(abbr!=='PA')toggleScatHL(abbr);});
+  });
+}
+function toggleScatHL(a){if(a==='PA')return;var i=scatHL.indexOf(a);if(i>=0)scatHL.splice(i,1);else scatHL.push(a);render();}
+
+function renderTable(sorted,ind,maxV){
+  var barC=ind.higher_is==='worse'?'#8B2218':'#1868AD';
+  var rows=sorted.map(function(s,i){
+    var bw=maxV>0?Math.max(2,(s.value/maxV)*88):2,isPa=s.fips==='42';
+    return'<tr class="'+(isPa?'pa-row':'')+'"><td class="num" style="color:var(--ink3);width:38px">'+(i+1)+'</td><td><strong>'+s.abbr+'</strong> \u00b7 '+s.name+'</td><td class="num r">'+fmt(s.value,ind.unit)+'</td><td><div class="tbl-bar-wrap"><div class="tbl-bar" style="width:'+bw+'px;background:'+(isPa?'#7A5200':barC)+'"></div></div></td></tr>';
+  }).join('');
+  return '<div class="cbar">'
+    +'<span class="cbar-lbl">Sort</span>'
+    +'<div class="seg">'
+    +'<button class="'+(sortMode==='desc'?'on':'')+'" onclick="sortMode=\'desc\';render()">High\u2192Low</button>'
+    +'<button class="'+(sortMode==='asc'?'on':'')+'" onclick="sortMode=\'asc\';render()">Low\u2192High</button>'
+    +'<button class="'+(sortMode==='alpha'?'on':'')+'" onclick="sortMode=\'alpha\';render()">A\u2013Z</button>'
+    +'</div>'
+    +'<input class="flt" type="text" placeholder="Filter by name or abbreviation\u2026" value="'+filterTxt+'" oninput="filterTxt=this.value;render()">'
+    +'</div>'
+    +'<div class="tbl-wrap"><table>'
+    +'<thead><tr><th>Rank</th><th>State</th><th class="r">'+ind.label+'</th><th>Distribution</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table></div>';
+}
+
+function dlChart(svgId,fname){
+  var svg=document.getElementById(svgId);if(!svg)return;
+  var src='<?xml version="1.0" standalone="no"?>'+new XMLSerializer().serializeToString(svg);
+  var img=new Image();
+  img.onload=function(){
+    var sc=2,vb=svg.viewBox.baseVal;
+    var can=document.createElement('canvas');can.width=(vb.width||svg.clientWidth)*sc;can.height=(vb.height||svg.clientHeight)*sc;
+    var ctx=can.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,can.width,can.height);ctx.scale(sc,sc);ctx.drawImage(img,0,0);
+    var a=document.createElement('a');a.download=(fname||'chart')+'.png';a.href=can.toDataURL('image/png');a.click();
+  };
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(src);
+}
+
+function setTab(t){activeTab=t;filterTxt='';render();}
 boot();
 </script>
 </body>
