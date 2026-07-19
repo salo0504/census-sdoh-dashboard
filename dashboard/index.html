@@ -188,7 +188,7 @@ tbody tr:hover{background:var(--blue-lt)}
 </footer>
 <div class="tip" id="tip"></div>
 <script>
-const DATA_URL="https://raw.githubusercontent.com/salo0504/census-sdoh-dashboard/main/data/data.json";
+const DATA_URL="https://raw.githubusercontent.com/salo0504/census-sdoh-dashboard/main/data/data_all_years.json";
 const HIST={
   years:[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024],
   nat:[46242,48451,50740,51369,49777,49276,50054,51017,51939,53482,55775,57617,60336,63179,65712,69717,74580,80002,81604],
@@ -248,15 +248,38 @@ const HIST={
 };
 const COLORS=['#1868AD','#C0392B','#1A6B4A','#7B3F9E','#CA6F1E','#1A5276','#7D6608','#145A32'];
 const FIPS={"01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY","72":"PR"};
-let DATA=null,activeInd=null,activeTab='chart',sortMode='desc',filterTxt='',trendSel=['PA','CA','MA','TX'],scatX='median_household_income',scatY='poverty_rate',scatHL=['PA'];
+let ALLDATA=null,activeYear=null,DATA=null,activeInd=null,activeTab='chart',sortMode='desc',filterTxt='',trendSel=['PA','CA','MA','TX'],scatX='median_household_income',scatY='poverty_rate',scatHL=['PA'];
 
 function fmt(v,unit){if(v==null)return'—';return unit==='dollars'?'$'+Math.round(v).toLocaleString('en-US'):v.toFixed(1)+'%';}
+
+function buildYearView(year){
+  // Build a DATA object in the old format from the multi-year file for the selected year
+  var yearData=ALLDATA.years[String(year)];
+  if(!yearData)return false;
+  var indMeta=ALLDATA.meta.indicators||{};
+  var indicators={};
+  Object.entries(yearData.indicators).forEach(function(e){
+    var key=e[0],ind=e[1];
+    var meta=indMeta[key]||{};
+    indicators[key]={
+      label:meta.label||key,
+      category:meta.category||'',
+      unit:meta.unit||'percent',
+      description:meta.description||'',
+      higher_is:meta.higher_is||'neutral',
+      table:meta.table||'',
+      states:ind.states||{}
+    };
+  });
+  DATA={meta:{vintage:year,survey:'ACS 1-year estimates',published_at:yearData.pulled_at},indicators:indicators};
+  return true;
+}
 
 async function boot(){
   try{
     const r=await fetch(DATA_URL+'?t='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
-    DATA=await r.json();
+    ALLDATA=await r.json();
   }catch(e){
     document.getElementById('loader').style.display='none';
     const em=document.getElementById('errMsg');em.style.display='';
@@ -265,12 +288,30 @@ async function boot(){
   }
   document.getElementById('loader').style.display='none';
   document.getElementById('app').style.display='';
-  const m=DATA.meta,d=(m.published_at||m.pulled_at||'').slice(0,10);
-  document.getElementById('yearSel').innerHTML='<option value="'+m.vintage+'">'+m.vintage+' (latest)</option>';
-  document.getElementById('footerRight').innerHTML='<strong>ACS '+m.vintage+' · 1-year</strong>Refreshed '+d+(m.notes?'<br>'+m.notes:'');
+  var years=ALLDATA.meta.years_available||[];
+  var latestYear=ALLDATA.meta.latest_year||Math.max.apply(null,years);
+  var updated=(ALLDATA.meta.last_updated||'').slice(0,10);
+  // Populate year dropdown
+  var sel=document.getElementById('yearSel');
+  sel.innerHTML=years.slice().reverse().map(function(y){
+    return'<option value="'+y+'"'+(y===latestYear?' selected':'')+'>'+y+(y===latestYear?' (latest)':'')+'</option>';
+  }).join('');
+  sel.onchange=function(){changeYear(parseInt(this.value));};
+  document.getElementById('footerRight').innerHTML='<strong>ACS '+latestYear+' · 1-year</strong>'+years.length+' years available ('+Math.min.apply(null,years)+'–'+latestYear+')<br>Last refreshed '+updated+(ALLDATA.meta.notes?'<br>'+ALLDATA.meta.notes:'');
+  activeYear=latestYear;
+  buildYearView(activeYear);
   buildSidebar();
   activeInd=Object.keys(DATA.indicators)[0];
   render();
+}
+
+function changeYear(year){
+  activeYear=year;
+  filterTxt='';
+  if(buildYearView(year)){
+    buildSidebar();
+    render();
+  }
 }
 
 function buildSidebar(){
