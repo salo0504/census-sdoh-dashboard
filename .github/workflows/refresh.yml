@@ -1,0 +1,68 @@
+# .github/workflows/refresh.yml
+#
+# Automatically pulls the latest ACS data each September and commits
+# it to the repo, triggering a Netlify redeploy of the dashboard.
+#
+# Setup:
+#   1. Add CENSUS_API_KEY as a repository secret
+#      (GitHub repo → Settings → Secrets → Actions → New repository secret)
+#   2. Place this file at .github/workflows/refresh.yml in your repo
+#   3. The workflow runs automatically on the 15th of September each year
+#      (Census Bureau typically releases ACS 1-year data in mid-September)
+#   4. You can also trigger it manually from the Actions tab at any time
+
+name: Annual ACS Data Refresh
+
+on:
+  # Automatic: runs September 15th at 10:00 UTC each year
+  schedule:
+    - cron: '0 10 15 9 *'
+
+  # Manual: trigger from GitHub Actions tab whenever you want
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Specific year to pull (leave blank for latest)'
+        required: false
+        default: ''
+      pull_all:
+        description: 'Pull all years from 2005 (first-time initialisation only)'
+        required: false
+        default: 'false'
+        type: boolean
+
+# Allow the workflow to commit the updated data file back to the repo
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install httpx
+
+      - name: Pull latest ACS data
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+          GITHUB_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO:    ${{ github.repository }}
+          PULL_ALL:       ${{ github.event.inputs.pull_all }}
+          SPECIFIC_YEAR:  ${{ github.event.inputs.year }}
+        run: python .github/scripts/refresh_data.py
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::ACS data refresh failed. Check the logs above."
+          echo "Visit https://api.census.gov/data to verify API availability."
