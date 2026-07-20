@@ -7,10 +7,11 @@
       2008,
       2009,
       2010,
-      2011
+      2011,
+      2012
     ],
-    "latest_year": 2011,
-    "last_updated": "2026-07-20T21:43:45.213712+00:00",
+    "latest_year": 2012,
+    "last_updated": "2026-07-20T21:44:42.588108+00:00",
     "survey": "ACS 1-year estimates",
     "indicators": {
       "median_household_income": {
@@ -16542,6 +16543,2775 @@
             "72": {
               "name": "Puerto Rico",
               "value": 35.08
+            }
+          }
+        },
+        "broadband_access": {
+          "states": {},
+          "note": "Not available before 2013"
+        }
+      }
+    },
+    "2012": {
+      "pulled_at": "2026-07-20T21:44:15.503695+00:00",
+      "indicators": {
+        "median_household_income": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 41574.0
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 67712.0
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 47826.0
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 40112.0
+            },
+            "06": {
+              "name": "California",
+              "value": 58328.0
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 56765.0
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 58415.0
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 66583.0
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 67276.0
+            },
+            "12": {
+              "name": "Florida",
+              "value": 45040.0
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 47209.0
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 45489.0
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 66259.0
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 55137.0
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 46974.0
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 50957.0
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 50241.0
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 41724.0
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 42944.0
+            },
+            "23": {
+              "name": "Maine",
+              "value": 46709.0
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 71122.0
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 65339.0
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 46859.0
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 58906.0
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 37095.0
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 45321.0
+            },
+            "30": {
+              "name": "Montana",
+              "value": 45076.0
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 50723.0
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 49760.0
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 63280.0
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 69667.0
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 42558.0
+            },
+            "36": {
+              "name": "New York",
+              "value": 56448.0
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 45150.0
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 53585.0
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 46829.0
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 44312.0
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 49161.0
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 51230.0
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 54554.0
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 43107.0
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 48362.0
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 42764.0
+            },
+            "48": {
+              "name": "Texas",
+              "value": 50740.0
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 52977.0
+            },
+            "49": {
+              "name": "Utah",
+              "value": 57049.0
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 61741.0
+            },
+            "53": {
+              "name": "Washington",
+              "value": 57573.0
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 40196.0
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 51059.0
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 54901.0
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 19429.0
+            }
+          }
+        },
+        "poverty_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 19.0
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 10.1
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 18.7
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 19.8
+            },
+            "06": {
+              "name": "California",
+              "value": 17.0
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 13.7
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 12.0
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 18.2
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 10.7
+            },
+            "12": {
+              "name": "Florida",
+              "value": 17.1
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 19.2
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 15.9
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 11.6
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 14.7
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 15.6
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 12.7
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 14.0
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 19.4
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 19.9
+            },
+            "23": {
+              "name": "Maine",
+              "value": 14.7
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 10.3
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 11.9
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 17.4
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 11.4
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 24.2
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 16.2
+            },
+            "30": {
+              "name": "Montana",
+              "value": 15.5
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 13.0
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 16.4
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 10.0
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 10.8
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 20.8
+            },
+            "36": {
+              "name": "New York",
+              "value": 15.9
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 18.0
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 11.2
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 16.3
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 17.2
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 17.2
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 13.7
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 13.7
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 18.3
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 13.4
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 17.9
+            },
+            "48": {
+              "name": "Texas",
+              "value": 17.9
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 11.8
+            },
+            "49": {
+              "name": "Utah",
+              "value": 12.8
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 11.7
+            },
+            "53": {
+              "name": "Washington",
+              "value": 13.5
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 17.8
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 13.2
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 12.6
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 44.9
+            }
+          }
+        },
+        "employment_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 52.3
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 62.3
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 54.0
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 54.2
+            },
+            "06": {
+              "name": "California",
+              "value": 56.1
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 62.6
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 58.2
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 61.3
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 60.8
+            },
+            "12": {
+              "name": "Florida",
+              "value": 52.4
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 55.4
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 58.4
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 57.8
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 59.3
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 58.6
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 64.1
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 62.2
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 53.8
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 55.5
+            },
+            "23": {
+              "name": "Maine",
+              "value": 59.0
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 62.5
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 61.6
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 54.3
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 65.7
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 51.4
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 57.9
+            },
+            "30": {
+              "name": "Montana",
+              "value": 59.6
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 66.3
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 56.8
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 64.1
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 59.4
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 53.5
+            },
+            "36": {
+              "name": "New York",
+              "value": 57.5
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 55.3
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 67.6
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 57.5
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 57.0
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 55.4
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 57.2
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 59.6
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 53.4
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 65.3
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 55.0
+            },
+            "48": {
+              "name": "Texas",
+              "value": 59.2
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 62.9
+            },
+            "49": {
+              "name": "Utah",
+              "value": 63.9
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 60.2
+            },
+            "53": {
+              "name": "Washington",
+              "value": 58.4
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 49.7
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 62.3
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 63.6
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 37.4
+            }
+          }
+        },
+        "snap_receipt_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 16.78
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 11.41
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 14.46
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 15.45
+            },
+            "06": {
+              "name": "California",
+              "value": 9.09
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 9.33
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 14.22
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 15.36
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 12.01
+            },
+            "12": {
+              "name": "Florida",
+              "value": 15.19
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 16.49
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 13.85
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 11.3
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 12.87
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 12.77
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 12.44
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 9.92
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 18.2
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 17.6
+            },
+            "23": {
+              "name": "Maine",
+              "value": 17.77
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 11.11
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 12.9
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 17.79
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 9.15
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 19.36
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 14.69
+            },
+            "30": {
+              "name": "Montana",
+              "value": 11.94
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 9.27
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 12.57
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 8.28
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 9.28
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 16.49
+            },
+            "36": {
+              "name": "New York",
+              "value": 15.55
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 15.34
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 7.7
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 15.67
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 14.2
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 20.05
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 13.12
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 15.43
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 16.25
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 10.37
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 17.74
+            },
+            "48": {
+              "name": "Texas",
+              "value": 14.25
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 14.67
+            },
+            "49": {
+              "name": "Utah",
+              "value": 9.82
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 9.72
+            },
+            "53": {
+              "name": "Washington",
+              "value": 15.07
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 15.73
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 13.31
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 6.99
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 38.04
+            }
+          }
+        },
+        "hs_diploma_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 82.7
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 92.1
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 85.3
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 83.7
+            },
+            "06": {
+              "name": "California",
+              "value": 81.2
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 89.9
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 87.3
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 88.2
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 89.4
+            },
+            "12": {
+              "name": "Florida",
+              "value": 85.6
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 83.9
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 88.9
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 91.1
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 87.0
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 87.0
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 90.7
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 89.5
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 82.4
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 81.2
+            },
+            "23": {
+              "name": "Maine",
+              "value": 90.4
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 88.1
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 89.3
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 88.6
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 91.9
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 80.4
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 87.6
+            },
+            "30": {
+              "name": "Montana",
+              "value": 92.0
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 89.6
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 84.8
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 90.9
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 88.0
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 83.3
+            },
+            "36": {
+              "name": "New York",
+              "value": 84.9
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 83.3
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 91.2
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 88.3
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 85.9
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 89.1
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 88.4
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 85.7
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 83.6
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 89.6
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 84.3
+            },
+            "48": {
+              "name": "Texas",
+              "value": 80.9
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 90.2
+            },
+            "49": {
+              "name": "Utah",
+              "value": 90.8
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 87.1
+            },
+            "53": {
+              "name": "Washington",
+              "value": 89.8
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 83.5
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 90.1
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 91.4
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 70.4
+            }
+          }
+        },
+        "bachelors_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 23.4
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 24.9
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 28.4
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 20.3
+            },
+            "06": {
+              "name": "California",
+              "value": 31.2
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 37.7
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 29.1
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 54.5
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 37.5
+            },
+            "12": {
+              "name": "Florida",
+              "value": 27.7
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 27.9
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 26.7
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 28.2
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 31.4
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 23.2
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 25.7
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 30.0
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 21.2
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 21.0
+            },
+            "23": {
+              "name": "Maine",
+              "value": 26.5
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 36.9
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 39.4
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 26.1
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 32.6
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 19.3
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 25.9
+            },
+            "30": {
+              "name": "Montana",
+              "value": 28.8
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 28.1
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 22.8
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 33.9
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 36.8
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 25.8
+            },
+            "36": {
+              "name": "New York",
+              "value": 32.9
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 26.8
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 25.9
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 25.6
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 23.4
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 30.1
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 28.2
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 31.8
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 25.2
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 25.1
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 24.2
+            },
+            "48": {
+              "name": "Texas",
+              "value": 26.9
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 33.2
+            },
+            "49": {
+              "name": "Utah",
+              "value": 33.2
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 35.9
+            },
+            "53": {
+              "name": "Washington",
+              "value": 32.2
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 17.8
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 26.1
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 24.3
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 19.5
+            }
+          }
+        },
+        "uninsured_rate": {
+          "states": {},
+          "error": "Client error '400 ' for url 'https://api.census.gov/data/2012/acs/acs1/subject?get=NAME%2CS2701_C05_001E&for=state%3A%2A&key=88e6f1bc804c328e28d339fbe0dc311d53e7147b'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400"
+        },
+        "disability_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 16.4
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 11.0
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 11.7
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 16.4
+            },
+            "06": {
+              "name": "California",
+              "value": 10.2
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 10.1
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 12.0
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 11.4
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 10.7
+            },
+            "12": {
+              "name": "Florida",
+              "value": 12.9
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 12.0
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 12.4
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 10.9
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 10.7
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 12.9
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 11.3
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 12.0
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 17.0
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 15.3
+            },
+            "23": {
+              "name": "Maine",
+              "value": 15.9
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 10.3
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 11.5
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 13.9
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 10.2
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 16.5
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 14.3
+            },
+            "30": {
+              "name": "Montana",
+              "value": 12.9
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 10.6
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 12.2
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 11.8
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 10.2
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 14.8
+            },
+            "36": {
+              "name": "New York",
+              "value": 10.9
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 13.0
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 10.5
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 13.6
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 15.3
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 13.9
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 13.4
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 12.5
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 14.0
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 12.0
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 15.1
+            },
+            "48": {
+              "name": "Texas",
+              "value": 11.6
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 13.4
+            },
+            "49": {
+              "name": "Utah",
+              "value": 9.2
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 10.8
+            },
+            "53": {
+              "name": "Washington",
+              "value": 12.0
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 19.0
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 11.3
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 11.7
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 21.0
+            }
+          }
+        },
+        "median_gross_rent": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 689.0
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 1120.0
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 888.0
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 640.0
+            },
+            "06": {
+              "name": "California",
+              "value": 1200.0
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 934.0
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 960.0
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 1235.0
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 1019.0
+            },
+            "12": {
+              "name": "Florida",
+              "value": 954.0
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 837.0
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 702.0
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 1379.0
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 868.0
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 715.0
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 661.0
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 711.0
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 636.0
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 747.0
+            },
+            "23": {
+              "name": "Maine",
+              "value": 744.0
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 1170.0
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 1036.0
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 748.0
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 813.0
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 666.0
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 706.0
+            },
+            "30": {
+              "name": "Montana",
+              "value": 681.0
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 692.0
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 944.0
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 967.0
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 1148.0
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 753.0
+            },
+            "36": {
+              "name": "New York",
+              "value": 1079.0
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 756.0
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 644.0
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 700.0
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 686.0
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 862.0
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 798.0
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 878.0
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 754.0
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 651.0
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 730.0
+            },
+            "48": {
+              "name": "Texas",
+              "value": 831.0
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 860.0
+            },
+            "49": {
+              "name": "Utah",
+              "value": 851.0
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 1068.0
+            },
+            "53": {
+              "name": "Washington",
+              "value": 954.0
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 607.0
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 743.0
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 742.0
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 448.0
+            }
+          }
+        },
+        "homeownership_rate": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 68.75
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 63.35
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 62.56
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 66.24
+            },
+            "06": {
+              "name": "California",
+              "value": 54.03
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 64.03
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 70.83
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 41.51
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 66.91
+            },
+            "12": {
+              "name": "Florida",
+              "value": 65.64
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 63.65
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 68.37
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 56.9
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 66.6
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 69.38
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 71.93
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 66.36
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 67.04
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 65.73
+            },
+            "23": {
+              "name": "Maine",
+              "value": 71.41
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 66.46
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 62.24
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 71.06
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 71.44
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 68.19
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 67.47
+            },
+            "30": {
+              "name": "Montana",
+              "value": 67.05
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 66.34
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 54.87
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 70.86
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 65.07
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 67.73
+            },
+            "36": {
+              "name": "New York",
+              "value": 53.65
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 65.44
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 65.03
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 66.29
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 66.38
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 61.56
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 68.91
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 59.99
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 68.13
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 67.09
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 66.69
+            },
+            "48": {
+              "name": "Texas",
+              "value": 62.28
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 71.01
+            },
+            "49": {
+              "name": "Utah",
+              "value": 69.62
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 66.16
+            },
+            "53": {
+              "name": "Washington",
+              "value": 62.33
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 71.98
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 67.29
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 69.05
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 69.47
+            }
+          }
+        },
+        "housing_cost_burden": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 42.6
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 44.31
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 47.74
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 42.55
+            },
+            "06": {
+              "name": "California",
+              "value": 54.64
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 48.58
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 45.63
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 45.76
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 49.61
+            },
+            "12": {
+              "name": "Florida",
+              "value": 54.21
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 47.75
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 45.83
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 50.27
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 46.97
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 45.36
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 41.47
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 40.93
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 42.66
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 45.69
+            },
+            "23": {
+              "name": "Maine",
+              "value": 47.21
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 47.97
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 46.78
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 49.75
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 45.33
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 45.23
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 46.41
+            },
+            "30": {
+              "name": "Montana",
+              "value": 42.34
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 39.42
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 48.55
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 46.1
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 51.34
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 45.97
+            },
+            "36": {
+              "name": "New York",
+              "value": 50.38
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 44.85
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 31.7
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 45.43
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 42.37
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 49.99
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 45.94
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 47.79
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 46.25
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 36.7
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 45.29
+            },
+            "48": {
+              "name": "Texas",
+              "value": 44.49
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 46.95
+            },
+            "49": {
+              "name": "Utah",
+              "value": 46.37
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 46.4
+            },
+            "53": {
+              "name": "Washington",
+              "value": 47.7
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 38.91
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 45.92
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 38.81
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 30.87
+            }
+          }
+        },
+        "foreign_born_pct": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 3.39
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 7.15
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 13.37
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 4.38
+            },
+            "06": {
+              "name": "California",
+              "value": 27.08
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 9.76
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 8.45
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 14.28
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 13.8
+            },
+            "12": {
+              "name": "Florida",
+              "value": 19.4
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 9.48
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 6.05
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 18.09
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 13.91
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 4.64
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 4.48
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 6.47
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 3.14
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 3.65
+            },
+            "23": {
+              "name": "Maine",
+              "value": 3.54
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 14.26
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 14.98
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 6.14
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 7.24
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 1.99
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 3.79
+            },
+            "30": {
+              "name": "Montana",
+              "value": 1.83
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 6.39
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 19.23
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 5.4
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 21.25
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 9.22
+            },
+            "36": {
+              "name": "New York",
+              "value": 22.61
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 7.67
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 2.77
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 3.91
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 5.59
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 9.56
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 6.03
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 13.34
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 4.7
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 2.74
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 4.52
+            },
+            "48": {
+              "name": "Texas",
+              "value": 16.38
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 4.08
+            },
+            "49": {
+              "name": "Utah",
+              "value": 8.44
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 11.57
+            },
+            "53": {
+              "name": "Washington",
+              "value": 13.29
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 1.39
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 4.75
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 3.39
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 2.7
+            }
+          }
+        },
+        "non_english_household_pct": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 16.03
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 8.0
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 14.29
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 15.25
+            },
+            "06": {
+              "name": "California",
+              "value": 18.51
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 9.4
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 11.53
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 11.41
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 10.14
+            },
+            "12": {
+              "name": "Florida",
+              "value": 13.49
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 14.99
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 10.21
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 9.61
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 12.4
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 12.45
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 8.41
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 9.78
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 16.24
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 16.99
+            },
+            "23": {
+              "name": "Maine",
+              "value": 8.42
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 10.92
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 10.34
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 10.81
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 7.5
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 17.7
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 12.04
+            },
+            "30": {
+              "name": "Montana",
+              "value": 7.2
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 9.5
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 15.11
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 8.19
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 11.73
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 15.57
+            },
+            "36": {
+              "name": "New York",
+              "value": 14.69
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 14.83
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 8.29
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 11.21
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 13.33
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 10.13
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 11.07
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 13.87
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 15.14
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 9.46
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 14.86
+            },
+            "48": {
+              "name": "Texas",
+              "value": 18.56
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 8.34
+            },
+            "49": {
+              "name": "Utah",
+              "value": 8.99
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 12.1
+            },
+            "53": {
+              "name": "Washington",
+              "value": 9.6
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 15.49
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 9.25
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 8.31
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 27.41
+            }
+          }
+        },
+        "single_parent_pct": {
+          "states": {
+            "01": {
+              "name": "Alabama",
+              "value": 29.29
+            },
+            "02": {
+              "name": "Alaska",
+              "value": 28.36
+            },
+            "04": {
+              "name": "Arizona",
+              "value": 29.6
+            },
+            "05": {
+              "name": "Arkansas",
+              "value": 28.48
+            },
+            "06": {
+              "name": "California",
+              "value": 32.01
+            },
+            "08": {
+              "name": "Colorado",
+              "value": 28.79
+            },
+            "10": {
+              "name": "Delaware",
+              "value": 27.77
+            },
+            "11": {
+              "name": "District of Columbia",
+              "value": 53.63
+            },
+            "09": {
+              "name": "Connecticut",
+              "value": 29.23
+            },
+            "12": {
+              "name": "Florida",
+              "value": 28.83
+            },
+            "13": {
+              "name": "Georgia",
+              "value": 31.11
+            },
+            "16": {
+              "name": "Idaho",
+              "value": 23.53
+            },
+            "15": {
+              "name": "Hawaii",
+              "value": 29.5
+            },
+            "17": {
+              "name": "Illinois",
+              "value": 29.68
+            },
+            "18": {
+              "name": "Indiana",
+              "value": 27.43
+            },
+            "19": {
+              "name": "Iowa",
+              "value": 25.5
+            },
+            "20": {
+              "name": "Kansas",
+              "value": 27.74
+            },
+            "21": {
+              "name": "Kentucky",
+              "value": 28.69
+            },
+            "22": {
+              "name": "Louisiana",
+              "value": 33.23
+            },
+            "23": {
+              "name": "Maine",
+              "value": 26.09
+            },
+            "24": {
+              "name": "Maryland",
+              "value": 30.2
+            },
+            "25": {
+              "name": "Massachusetts",
+              "value": 32.97
+            },
+            "26": {
+              "name": "Michigan",
+              "value": 27.83
+            },
+            "27": {
+              "name": "Minnesota",
+              "value": 25.72
+            },
+            "28": {
+              "name": "Mississippi",
+              "value": 32.1
+            },
+            "29": {
+              "name": "Missouri",
+              "value": 29.33
+            },
+            "30": {
+              "name": "Montana",
+              "value": 25.82
+            },
+            "31": {
+              "name": "Nebraska",
+              "value": 28.06
+            },
+            "32": {
+              "name": "Nevada",
+              "value": 32.88
+            },
+            "33": {
+              "name": "New Hampshire",
+              "value": 25.31
+            },
+            "34": {
+              "name": "New Jersey",
+              "value": 28.79
+            },
+            "35": {
+              "name": "New Mexico",
+              "value": 29.04
+            },
+            "36": {
+              "name": "New York",
+              "value": 36.97
+            },
+            "37": {
+              "name": "North Carolina",
+              "value": 29.61
+            },
+            "38": {
+              "name": "North Dakota",
+              "value": 29.88
+            },
+            "39": {
+              "name": "Ohio",
+              "value": 30.21
+            },
+            "40": {
+              "name": "Oklahoma",
+              "value": 28.41
+            },
+            "41": {
+              "name": "Oregon",
+              "value": 30.04
+            },
+            "42": {
+              "name": "Pennsylvania",
+              "value": 29.15
+            },
+            "44": {
+              "name": "Rhode Island",
+              "value": 35.95
+            },
+            "45": {
+              "name": "South Carolina",
+              "value": 29.76
+            },
+            "46": {
+              "name": "South Dakota",
+              "value": 28.11
+            },
+            "47": {
+              "name": "Tennessee",
+              "value": 29.07
+            },
+            "48": {
+              "name": "Texas",
+              "value": 30.73
+            },
+            "50": {
+              "name": "Vermont",
+              "value": 26.27
+            },
+            "49": {
+              "name": "Utah",
+              "value": 21.83
+            },
+            "51": {
+              "name": "Virginia",
+              "value": 27.97
+            },
+            "53": {
+              "name": "Washington",
+              "value": 29.09
+            },
+            "54": {
+              "name": "West Virginia",
+              "value": 26.3
+            },
+            "55": {
+              "name": "Wisconsin",
+              "value": 28.82
+            },
+            "56": {
+              "name": "Wyoming",
+              "value": 24.52
+            },
+            "72": {
+              "name": "Puerto Rico",
+              "value": 34.82
             }
           }
         },
