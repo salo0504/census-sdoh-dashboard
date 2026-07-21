@@ -1,24 +1,42 @@
 # .github/workflows/refresh.yml
 #
-# Automatically pulls the latest ACS data each September and commits
-# it to the repo, triggering a Netlify redeploy of the dashboard.
+# Pulls ACS data and commits it to the repo, which triggers a Netlify redeploy
+# of the dashboard. The actual work is done by .github/scripts/refresh_data.py,
+# which is fail-closed: if a Census table redesign is detected, the job FAILS and
+# commits nothing, so bad data can never reach the live dashboard unreviewed.
 #
-# Setup:
-#   1. Add CENSUS_API_KEY as a repository secret
-#      (GitHub repo → Settings → Secrets → Actions → New repository secret)
-#   2. Place this file at .github/workflows/refresh.yml in your repo
-#   3. The workflow runs automatically on the 15th of September each year
-#      (Census Bureau typically releases ACS 1-year data in mid-September)
-#   4. You can also trigger it manually from the Actions tab at any time
+# SETUP
+#   1. Add ONE repository secret: CENSUS_API_KEY
+#      (repo -> Settings -> Secrets and variables -> Actions -> New repository secret).
+#      You do NOT need to add GITHUB_TOKEN — Actions provides it automatically.
+#   2. Commit these two files:
+#        .github/workflows/refresh.yml   (this file)
+#        .github/scripts/refresh_data.py (the standalone pull script)
+#   3. FIRST RUN / INITIALISE: go to the Actions tab -> "Annual ACS Data Refresh"
+#      -> "Run workflow", set "pull_all" = true. This does a clean full rebuild
+#      with the corrected definitions and commits it. (This is also the simplest
+#      way to run the current data fix — no MCP server needed.)
+#   4. After that, it runs itself each September and appends the new year.
+#
+# NOTES
+#   - The schedule fires on three September dates as a safety net, because the
+#     Census release date drifts year to year. The script exits cleanly (no
+#     commit) if the new year isn't out yet, so extra attempts are harmless.
+#   - GitHub disables scheduled workflows in a repo after ~60 days of no commits.
+#     Since this commits only about once a year, the schedule may get auto-paused
+#     between runs. The manual "Run workflow" button always works — set a
+#     September calendar reminder as a backstop, or re-enable it from the Actions
+#     tab if GitHub pauses it.
 
 name: Annual ACS Data Refresh
 
 on:
-  # Automatic: runs September 15th at 10:00 UTC each year
   schedule:
-    - cron: '0 10 15 9 *'
-
-  # Manual: trigger from GitHub Actions tab whenever you want
+    # Three attempts through September (10:00 UTC). Early ones no-op if the
+    # Census release isn't out yet; the first one that finds data commits.
+    - cron: '0 10 12 9 *'
+    - cron: '0 10 19 9 *'
+    - cron: '0 10 26 9 *'
   workflow_dispatch:
     inputs:
       year:
@@ -26,20 +44,24 @@ on:
         required: false
         default: ''
       pull_all:
-        description: 'Pull all years from 2005 (first-time initialisation only)'
+        description: 'Full rebuild from 2005 (first-time init, or after a fix)'
         required: false
         default: 'false'
         type: boolean
 
-# Allow the workflow to commit the updated data file back to the repo
+# Needed so the workflow-provided token can commit the updated data file.
 permissions:
   contents: write
+
+# Never let two refreshes run at once (they'd fight over the file's git sha).
+concurrency:
+  group: acs-refresh
+  cancel-in-progress: false
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -50,19 +72,25 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install httpx
+        run: pip install "httpx>=0.27,<1.0"
 
-      - name: Pull latest ACS data
+      - name: Pull and refresh ACS data
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
           GITHUB_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO:    ${{ github.repository }}
+          GITHUB_BRANCH:  ${{ github.ref_name }}
+          DATA_FILE_PATH: data/data_all_years.json
+          START_YEAR:     '2005'
           PULL_ALL:       ${{ github.event.inputs.pull_all }}
           SPECIFIC_YEAR:  ${{ github.event.inputs.year }}
         run: python .github/scripts/refresh_data.py
 
-      - name: Notify on failure
+      - name: Explain a failure
         if: failure()
         run: |
-          echo "::error::ACS data refresh failed. Check the logs above."
-          echo "Visit https://api.census.gov/data to verify API availability."
+          echo "::error::ACS refresh failed — nothing was committed."
+          echo "If the log shows 'consistency flag' warnings, a Census table"
+          echo "definition likely changed. Review the flagged indicators and update"
+          echo "available_from / available_to in refresh_data.py before re-running."
+          echo "Otherwise, verify CENSUS_API_KEY and that https://api.census.gov is reachable."
